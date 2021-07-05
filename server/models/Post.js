@@ -1,0 +1,43 @@
+const { Schema, model } = require('mongoose');
+const commentSchema = require('./Comment');
+const dateFormat = require('../utils/dateFormat');
+
+const postSchema = new Schema({
+  
+    // postText: {
+    //   type: String,
+    //   required: [true, 'Text field is required'],
+    //   min: 1,
+    //   max: 280
+    // },
+
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => dateFormat(createdAtVal)
+    },
+    username: {
+      type: String,
+      required: [true, 'Username is required']
+    },
+    recipe: {
+      type: Schema.Types.ObjectId,
+      ref: 'Recipe'
+    },
+    comments: [commentSchema]
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+  // id: false
+})
+
+// virtual - post count
+userSchema.virtual('commentCount').get(function () {
+  return this.comments.length;
+});
+
+const Post = model('Post', postSchema);
+
+module.exports = Post;
