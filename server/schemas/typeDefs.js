@@ -10,6 +10,7 @@ const typeDefs = gql`
   }
 
   type Recipe {
+    _id: ID
     uri: String
     label: String
     image: String
@@ -32,9 +33,9 @@ const typeDefs = gql`
   type Post {
     _id: ID
     username: String
-    recipe: ID
+    recipeId: ID
     comments: [Comment]
-    createdAt: Float
+    createdAt: String
   }
 
   type User {
@@ -68,9 +69,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    me: User
+    me: User # OK
     getSingleUser(username: String!): User
-    getSinglePost(_id: ID!): Post # is this right? 
+    getSinglePost(postId: ID!): Post 
     getSingleRecipe(uri: String!): Recipe
 
     getFriendPosts(username: String!): User
@@ -81,11 +82,11 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth # OK
     login(email: String!, password: String!): Auth # OK
 
-    createPost(recipeId: String!): Post
+    createPost(recipeId: ID!): Post #
     # createPost(username: String!, uri: String): Post  # username &  recipe uri
     # ^ may need to make an input to take all recipe columns
 
-    addRecipe(input: RecipeInput!): Recipe
+    addRecipe(input: RecipeInput!): Recipe # OK
 
 
 

@@ -66,14 +66,17 @@ const resolvers = {
     // create Post (save recipe)
     createPost: async (_parent, { recipeId }, context) => {
       if (context.user) {
+        console.log(recipeId);
         const post = await Post.create( {recipeId, username: context.user.username })
-          .populate('recipes');
+          // .populate('recipes');
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { posts: post._id }},
           { new: true }
         )
+
+        return post;
       }
 
 

@@ -15,7 +15,7 @@ const postSchema = new Schema({
       type: String,
       required: [true, 'Username is required']
     },
-    recipe: {
+    recipeId: {
       type: Schema.Types.ObjectId,
       ref: 'Recipe'
     },
