@@ -80,8 +80,9 @@ const resolvers = {
       if (context.user) {
         console.log(recipeId);
         const post = await Post.create( {recipeId, username: context.user.username })
-          // .populate('recipes');
+          // .populate('recipes'); // doesn't work on create
 
+        // add post ID to user model
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { posts: post._id }},
@@ -99,21 +100,23 @@ const resolvers = {
     addFollow: async (_parent, { followId }, context) => {
       if (context.user) {
         
-        await User.findOneAndUpdate(
+        const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { follows: followId }},
-          { new: true, runValidators: true }
+          { $addToSet: { follows: followId }}, // addToSet will prevent duplicates
+          { new: true }
         )
 
-        return User
+        return user.populate('follows');
       }
       throw new AuthenticationError('You need to be logged in!');
     },
 
 
     // addComment
+    // takes postId
 
     // deleteComment
+    // takes postId and commentId
 
     // deletePost
 

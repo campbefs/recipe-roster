@@ -22,8 +22,8 @@ const userSchema = new Schema(
     },
     follows: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+        type: Schema.Types.ObjectId,  // question. how does this know to join on ID?
+        ref: 'User',
       }
     ],
     // save posts directly in the User model

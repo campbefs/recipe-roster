@@ -70,8 +70,11 @@ const typeDefs = gql`
 
   type Query {
     me: User # OK
+
     getSingleUser(username: String!): User
+
     getSinglePost(postId: ID!): Post 
+
     getSingleRecipe(uri: String!): Recipe
 
     getFriendPosts(username: String!): User
@@ -88,18 +91,21 @@ const typeDefs = gql`
     # createPost(username: String!, uri: String): Post  # username &  recipe uri
     # ^ may need to make an input to take all recipe columns
 
-    addFollow(followId: ID!): User
+    addFollow(followId: ID!): User # OK
 
+    # remove follow 
 
+    addComment(postId: ID!, commentText: String!, username: String!): Post  #
 
+    deleteComment(postId: ID!, commentId: ID!): Post # 
 
-    addComment(_id: ID!, commentText: String!, username: String!): Post  #takes post ID
+    deletePost(postId: ID!): Post # 
 
-    deleteComment(_id: ID!, commentId: ID!): Post # post ID and comment ID
+    # deleteRecipe?
 
-    deletePost(_id: ID!): Post # post ID
+    # Like a post?
 
-    # Like a post??
+    # Rate a recipe?
 
   }
 
