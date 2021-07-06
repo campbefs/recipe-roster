@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom'
 import { Button, Form, Segment } from "semantic-ui-react";
 import '../Login/login.css'
 
@@ -27,7 +26,7 @@ function SignUp() {
           
         // }}
         >Submit</Button>
-        <p>Already a member? <Link to='/login'>Login here.</Link></p>
+        <Button>Already a member? Login here. </Button>
       </Form>
     </Segment>
     </div>
