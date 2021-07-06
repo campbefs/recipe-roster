@@ -21,6 +21,7 @@ dishType: [String]
 const recipeSchema = new Schema({
   uri: {
     type: String,
+    required: true,
   },
   label: {
     type: String,

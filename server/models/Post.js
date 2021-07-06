@@ -11,11 +11,6 @@ const postSchema = new Schema({
     //   max: 280
     // },
 
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: createdAtVal => dateFormat(createdAtVal)
-    },
     username: {
       type: String,
       required: [true, 'Username is required']
@@ -24,7 +19,12 @@ const postSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Recipe'
     },
-    comments: [commentSchema]
+    comments: [commentSchema],
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => dateFormat(createdAtVal)
+    }
 },
 {
   toJSON: {
@@ -34,7 +34,7 @@ const postSchema = new Schema({
 })
 
 // virtual - post count
-userSchema.virtual('commentCount').get(function () {
+postSchema.virtual('commentCount').get(function () {
   return this.comments.length;
 });
 
