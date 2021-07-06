@@ -63,6 +63,18 @@ const resolvers = {
       return { token, user };
     },
 
+    // add recipe
+    addRecipe: async (_parent, { input }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const recipe = await Recipe.create(input);
+
+      return recipe;
+      
+    },
+
     // create Post (save recipe)
     createPost: async (_parent, { recipeId }, context) => {
       if (context.user) {
@@ -82,19 +94,21 @@ const resolvers = {
 
     },
 
-    // add recipe
-    addRecipe: async (_parent, { input }, context) => {
-      if (!context.user) {
-        throw new AuthenticationError('You need to be logged in!');
+
+    // Add Follow
+    addFollow: async (_parent, { followId }, context) => {
+      if (context.user) {
+        
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { follows: followId }},
+          { new: true, runValidators: true }
+        )
+
+        return User
       }
-
-      const recipe = await Recipe.create(input);
-
-      return recipe;
-      
+      throw new AuthenticationError('You need to be logged in!');
     },
-
-    // Add friend
 
 
     // addComment

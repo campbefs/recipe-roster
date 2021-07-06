@@ -82,11 +82,14 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth # OK
     login(email: String!, password: String!): Auth # OK
 
-    createPost(recipeId: ID!): Post #
+    addRecipe(input: RecipeInput!): Recipe # OK
+
+    createPost(recipeId: ID!): Post # OK
     # createPost(username: String!, uri: String): Post  # username &  recipe uri
     # ^ may need to make an input to take all recipe columns
 
-    addRecipe(input: RecipeInput!): Recipe # OK
+    addFollow(followId: ID!): User
+
 
 
 
