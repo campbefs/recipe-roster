@@ -1,5 +1,5 @@
 const { User, Post, Recipe } = require('../models');
-const { AuthenticationError } = require('apollo-server-express');
+const { AuthenticationError, UserInputError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -73,7 +73,7 @@ const resolvers = {
       return recipe;
     },
 
-    // create Post (save recipe)
+    // create Post (save recipe)  -- add a field of users that like the post
     createPost: async (_parent, { recipeId }, context) => {
       if (context.user) {
         // console.log(recipeId);
@@ -99,17 +99,14 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       }
 
-      // check if recipe already exists. if so, grab RecipeId
+      // check if recipe already exists in DB. if so, grab RecipeId
       let recipe = await Recipe.findOne({ uri: input.uri });
   
       // if not create recipe
-      // const recipe = await Recipe.create(input);
-
       if (!recipe) {
         recipe = await Recipe.create(input);
       }
-
-      console.log('recipeId: ', recipe._id);
+      // console.log('recipeId: ', recipe._id);
 
       // Create the Post
       const post = await Post.create( {
@@ -148,11 +145,17 @@ const resolvers = {
     },
 
 
-    // addComment
+    // addComment  -- error handling - post doesn't exist?
     // takes postId
     addComment: async (_parent, { postId, commentText }, context) => {
       if (!context.user) {
         throw new AuthenticationError('You need to be logged in!');
+      }
+
+      // check if post exists
+      const postCheck = await Post.findOne({ _id: postId });
+      if (!postCheck) {
+        throw new UserInputError('No post found');
       }
 
       const post = await Post.findOneAndUpdate(
@@ -171,6 +174,7 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       }
 
+      // Find the Comment in the Post table
       const userCheck = await Post.findOne(
         { _id: postId, comments: { $elemMatch: { _id: commentId }}}
       )
@@ -179,18 +183,16 @@ const resolvers = {
       // console.log(userCheck.comments.length);
 
       // check if data exists
-      if (userCheck.comments.length === 0 || !userCheck) {
-        return 'No match for that user & comment'
+      if (!userCheck) {
+        throw new UserInputError('No match for the inputs provided');
       }
 
       // check if comment user matches the context user
       if (userCheck.comments[0].username !== context.user.username) {
-        return 'No match for that user & comment'
+        throw new AuthenticationError('You are not authorized to delete this comment');
       }
 
-      // console.log(context.user.username);
-
-      // remove comment
+      // Remove comment
       const post = await Post.findOneAndUpdate(
         { _id: postId },
         { $pull: { comments: { _id: commentId }}},
@@ -200,13 +202,41 @@ const resolvers = {
       return userCheck;
     },
 
-
-
     // deletePost
+    deletePost: async (_parent, { postId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
 
-    // likePost
+      // check if post is found with that ID 
+      const postCheck = await Post.findOne({ _id: postId });
+      
+      if (!postCheck) {
+        throw new UserInputError('No post found with that ID');
+      }
+
+      // check if post username matches context
+      if (postCheck.username !== context.user.username) {
+        throw new AuthenticationError('You are not authorized to delete this post!');
+      }
+
+      // delete post 
+      const post = await Post.findOneAndDelete({_id: postId});
+
+      // remove post from User model
+      await User.findOneAndUpdate(
+        { _id: context.user._id},
+        { $pull: { posts: { _id: postId }}},
+        { new: true}
+      );
+
+      return post;
+
+    }
+
     
     // rateRecipe 
+
 
 
   }

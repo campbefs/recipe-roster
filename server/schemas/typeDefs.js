@@ -88,9 +88,9 @@ const typeDefs = gql`
 
     addRecipe(input: RecipeInput!): Recipe # OK
 
-    createPost(recipeId: ID!): Post # 
+    createPost(recipeId: ID!): Post # OK
 
-    addRecipeAndPost(input: RecipeInput!): Post
+    addRecipeAndPost(input: RecipeInput!): Post # OK
 
     addFollow(followId: ID!): User # OK
 
@@ -98,15 +98,16 @@ const typeDefs = gql`
 
     addComment(postId: ID!, commentText: String!): Post  # OK 
 
-    deleteComment(postId: ID!, commentId: ID!): Post # 
+    deleteComment(postId: ID!, commentId: ID!): Post # OK
 
-    # deletePost(postId: ID!): Post # 
+    deletePost(postId: ID!): Post 
 
-    # deleteRecipe
+    # deleteRecipe - NO. then you'd have to delete all the posts with it
 
-    # likePost
 
     # rateRecipe
+
+    # likePost -- add username to post. use addToSet
 
   }
 
