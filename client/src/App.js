@@ -15,8 +15,9 @@ function App() {
 
   return (
     <div className='App'>
-      <Nav setPage={setPage} pages={pages}/>
-      {page}
+      {/* <Nav setPage={setPage} pages={pages}/>
+      {page} */}
+      <RecipeSearch/>
 
       </div>
   );
