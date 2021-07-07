@@ -6,7 +6,7 @@ const typeDefs = gql`
     commentId: ID
     commentText: String
     username: String
-    createdAt: Float
+    createdAt: String
   }
 
   type Recipe {
@@ -25,7 +25,7 @@ const typeDefs = gql`
     mealType: [String]
     dishType: [String]
     ratings: [Int]
-    updated: Float
+    updated: String
     # avgRating: Float
     # ratingCount: Int
   }
@@ -52,6 +52,7 @@ const typeDefs = gql`
   }
 
   input RecipeInput {
+    _id: ID
     uri: String!
     label: String!
     image: String
@@ -87,7 +88,9 @@ const typeDefs = gql`
 
     addRecipe(input: RecipeInput!): Recipe # OK
 
-    createPost(recipeId: ID!): Post # OK
+    createPost(recipeId: ID!): Post # 
+
+    addRecipeAndPost(input: RecipeInput!): Post
 
     addFollow(followId: ID!): User # OK
 

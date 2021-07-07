@@ -71,13 +71,14 @@ const resolvers = {
       const recipe = await Recipe.create(input);
 
       return recipe;
-      
     },
 
     // create Post (save recipe)
     createPost: async (_parent, { recipeId }, context) => {
       if (context.user) {
-        console.log(recipeId);
+        // console.log(recipeId);
+
+        // Create the Post
         const post = await Post.create( {recipeId, username: context.user.username })
           // .populate('recipes'); // doesn't work on create
 
@@ -91,8 +92,42 @@ const resolvers = {
         return post;
       }
 
-
     },
+
+    addRecipeAndPost: async (_parent, { input }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      // check if recipe already exists. if so, grab RecipeId
+      let recipe = await Recipe.findOne({ uri: input.uri });
+  
+      // if not create recipe
+      // const recipe = await Recipe.create(input);
+
+      if (!recipe) {
+        recipe = await Recipe.create(input);
+      }
+
+      console.log('recipeId: ', recipe._id);
+
+      // Create the Post
+      const post = await Post.create( {
+                          recipeId: recipe._id, 
+                          username: context.user.username 
+                        })
+
+      // add post ID to user model
+      await User.findByIdAndUpdate(
+        { _id: context.user._id },
+        { $push: { posts: post._id }},
+        { new: true }
+      )
+
+      return post;
+    },
+
+
 
 
     // Add Follow

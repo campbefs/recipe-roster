@@ -63,9 +63,10 @@ const recipeSchema = new Schema({
   ratings: {
     type: [Number]
   },
-  updated: { 
-    type: Date, 
-    default: Date.now 
+  updated: {
+    type: Date,
+    default: Date.now,
+    get: createdAtVal => dateFormat(createdAtVal)
   },
   // SHOULD WE INCLUDE A BLOG SECTION HERE?
   // OR comments for the recipe itself?
