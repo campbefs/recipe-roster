@@ -20,12 +20,61 @@ const resolvers = {
     },
 
     // getSingleUser
+    getSingleUser: async (_parent, { username }, context) => {
+      if (context.user) {
+
+        const userData = await User.findOne({ username })
+          .select('-__v -password')
+          .populate('follows')
+          .populate('posts')
+        
+        if (!userData) {
+          throw new UserInputError('No User Found');
+        }
+      
+      return userData;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+
 
     // getSinglePost 
-    // takes postId
+    getSinglePost: async (_parent, { postId }, context) => {
+      if (context.user) {
+
+        const postData = await Post.findOne({ _id: postId })
+          .select('-__v')
+
+        if (!postData) {
+          throw new UserInputError('No Post Found');
+        }
+      
+      return postData;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
 
     // getSingleRecipe
     // takes recipeId OR uri  // look up examples of 'OR' 
+    getSingleRecipe: async (_parent, { recipeId, uri }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not logged in');
+      }
+
+      const recipe = await Recipe.findOne({ $or: [ 
+                  {_id: recipeId}, 
+                  { uri }
+                ]})
+      
+      if (!recipe) {
+        throw new UserInputError('No Recipe Found');
+      }
+
+      return recipe;
+
+    }
 
 
     // getFriendsPosts
@@ -231,7 +280,24 @@ const resolvers = {
       );
 
       return post;
+    },
 
+    likePost: async (_parent, { postId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not logged in');
+      }
+
+      const post = await Post.findOneAndUpdate(
+        {_id: postId },
+        { $addToSet: {likes: context.user.username}},
+        { new: true }
+      )
+
+      if (!post) {
+        throw new UserInputError('No Post Found');
+      }
+
+      return post;
     }
 
     

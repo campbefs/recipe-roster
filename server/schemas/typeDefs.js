@@ -35,7 +35,10 @@ const typeDefs = gql`
     username: String
     recipeId: ID
     comments: [Comment]
+    likes: [String]
     createdAt: String
+    commentCount: Int
+    likeCount: Int
   }
 
   type User {
@@ -69,14 +72,15 @@ const typeDefs = gql`
     ratings: [Float]
   }
 
+
   type Query {
     me: User # OK
 
-    getSingleUser(username: String!): User
+    getSingleUser(username: String!): User # OK
 
-    getSinglePost(postId: ID!): Post 
+    getSinglePost(postId: ID!): Post # OK
 
-    getSingleRecipe(uri: String!): Recipe
+    getSingleRecipe(recipeId: ID, uri: String): Recipe # OK
 
     getFriendPosts(username: String!): User
 
@@ -94,7 +98,7 @@ const typeDefs = gql`
 
     addFollow(followId: ID!): User # OK
 
-    # remove follow 
+    # remove follow - skip for V1
 
     addComment(postId: ID!, commentText: String!): Post  # OK 
 
@@ -104,11 +108,9 @@ const typeDefs = gql`
 
     # deleteRecipe - NO. then you'd have to delete all the posts with it
 
+    likePost(postId: ID!): Post # OK
 
     # rateRecipe
-
-    # likePost -- add username to post. use addToSet
-
   }
 
 `;
