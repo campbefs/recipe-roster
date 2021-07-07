@@ -10,6 +10,10 @@ function SignUp() {
       <Form>
         <h1>Become a Recipe Roster member today!</h1>
         <Form.Field>
+          <label>Username</label>
+          <input placeholder="Enter username" />
+        </Form.Field>
+        <Form.Field>
           <label>Email</label>
           <input placeholder="Enter email address" />
         </Form.Field>
@@ -17,10 +21,7 @@ function SignUp() {
           <label>Password</label>
           <input placeholder="Enter password" />
         </Form.Field>
-        <Form.Field>
-          <label>Verify Password</label>
-          <input placeholder="Re-enter password" />
-        </Form.Field>
+
         <Button type="submit"
         // onClick={() => {
           

@@ -12,9 +12,9 @@ function Nav(props) {
       </Header>
 
       <Header as="h3" floated="right">
-        <Button onClick={() => props.setPage(props.pages[5])}>
+        <Button onClick={() => props.setPage(props.pages[4])}>
           Login</Button>
-        <Button onClick={() => props.setPage(props.pages[6])}>
+        <Button onClick={() => props.setPage(props.pages[5])}>
           Sign Up</Button>
       </Header>
 
@@ -23,8 +23,7 @@ function Nav(props) {
     <Dropdown.Menu>
       <Dropdown.Item text='Go Home' onClick={() => props.setPage(props.pages[1])} />
       <Dropdown.Item text='View Profile' onClick={() => props.setPage(props.pages[2])} />
-      <Dropdown.Item text='Favorite Recipes' onClick={() => props.setPage(props.pages[3])}  />
-      <Dropdown.Item text='Saved Recipes' onClick={() => props.setPage(props.pages[4])} />
+      <Dropdown.Item text='Liked Recipes' onClick={() => props.setPage(props.pages[3])}  />
       <Dropdown.Divider/>
       <Dropdown.Item text='Logout' onClick={() => props.setPage(props.pages[0])} />
       
