@@ -298,12 +298,41 @@ const resolvers = {
       }
 
       return post;
-    }
+    },
 
     
     // rateRecipe 
+    rateRecipe: async (_parent, { recipeId, rating }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not logged in');
+      }
 
+      // check if user already rated recipe
+      const userRating = await Recipe.findOne(
+        { _id: recipeId, ratingUsers: context.user.username }
+      );
 
+      // if exists, throw user error
+      if (userRating) {
+        throw new UserInputError('User Already Rated');
+      };
+
+      // add rating to Recipe
+      const recipe = await Recipe.findOneAndUpdate(
+        { _id: recipeId },
+        { $push: { ratings: rating, ratingUsers: context.user.username }},
+        // { $push: { ratings: 1, ratingUsers: "testrating1" }}, // for testing
+        { new: true }
+      );
+
+      console.log(recipe);
+      
+      // add username to Recipe -- above
+
+      // save recipeId & rating to user - SKIP
+
+      return recipe;
+    }
 
   }
 };

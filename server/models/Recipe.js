@@ -64,6 +64,9 @@ const recipeSchema = new Schema({
   ratings: {
     type: [Number]
   },
+  ratingUsers: {
+    type: [String]  // username
+  },
   updated: {
     type: Date,
     default: Date.now,
@@ -72,26 +75,27 @@ const recipeSchema = new Schema({
   // SHOULD WE INCLUDE A BLOG SECTION HERE?
   // OR comments for the recipe itself?
 },
-// {
-//   toJSON: {
-//     virtuals: true,
-//   }
-// }
+{
+  toJSON: {
+    virtuals: true,
+  }
+}
 );
 
-// recipeSchema.virtual('avgRating').get(function () {
-//   sum = this.ratings.reduce((a, b) => a + b, 0);
-//   if (this.ratings.length === 0) {
-//     return 0;
-//   } else {
-//     return sum / this.ratings.length;
-//   }
-// });
+// virtual - average rating
+recipeSchema.virtual('avgRating').get(function () {
+  sum = this.ratings.reduce((a, b) => a + b, 0);
+  if (this.ratings.length === 0) {
+    return 0;
+  } else {
+    return sum / this.ratings.length;
+  }
+});
 
 // virtual - rating count
-// recipeSchema.virtual('ratingCount').get(function () {
-//   return this.ratings.length;
-// });
+recipeSchema.virtual('ratingCount').get(function () {
+  return this.ratings.length;
+});
 
 
 const Recipe = model('Recipe', recipeSchema);

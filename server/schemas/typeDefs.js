@@ -25,9 +25,10 @@ const typeDefs = gql`
     mealType: [String]
     dishType: [String]
     ratings: [Int]
+    ratingUsers: [String]
     updated: String
-    # avgRating: Float
-    # ratingCount: Int
+    avgRating: Float
+    ratingCount: Int
   }
 
   type Post {
@@ -104,13 +105,14 @@ const typeDefs = gql`
 
     deleteComment(postId: ID!, commentId: ID!): Post # OK
 
-    deletePost(postId: ID!): Post 
+    deletePost(postId: ID!): Post # OK
 
     # deleteRecipe - NO. then you'd have to delete all the posts with it
 
     likePost(postId: ID!): Post # OK
 
-    # rateRecipe
+    rateRecipe(recipeId: ID!, rating: Int): Recipe
+
   }
 
 `;
