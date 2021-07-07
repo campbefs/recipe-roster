@@ -88,24 +88,22 @@ const typeDefs = gql`
     addRecipe(input: RecipeInput!): Recipe # OK
 
     createPost(recipeId: ID!): Post # OK
-    # createPost(username: String!, uri: String): Post  # username &  recipe uri
-    # ^ may need to make an input to take all recipe columns
 
     addFollow(followId: ID!): User # OK
 
     # remove follow 
 
-    addComment(postId: ID!, commentText: String!, username: String!): Post  #
+    addComment(postId: ID!, commentText: String!): Post  # OK 
 
     deleteComment(postId: ID!, commentId: ID!): Post # 
 
-    deletePost(postId: ID!): Post # 
+    # deletePost(postId: ID!): Post # 
 
-    # deleteRecipe?
+    # deleteRecipe
 
-    # Like a post?
+    # likePost
 
-    # Rate a recipe?
+    # rateRecipe
 
   }
 

@@ -19,18 +19,17 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    // Find One user
     // getSingleUser
 
-    // Find One Post
-    // getSinglePost _id
+    // getSinglePost 
+    // takes postId
 
-    // Find One Recipe
     // getSingleRecipe
+    // takes recipeId OR uri  // look up examples of 'OR' 
 
-    // Find friend's posts - findOne, friend's posts -- 
-    // Just populate 1 user's friends. Then populate Posts, then populate Recipe
-    // getFriendPosts
+
+    // getFriendsPosts
+    // get single user => populate follows => populate posts (how to double populate...?)
 
   },
 
@@ -100,13 +99,15 @@ const resolvers = {
     addFollow: async (_parent, { followId }, context) => {
       if (context.user) {
         
-        const user = await User.findOneAndUpdate(
+        await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { follows: followId }}, // addToSet will prevent duplicates
           { new: true }
         )
 
-        return user.populate('follows');
+        // return user.populate();
+        return User.findOne({_id: context.user._id})
+          .populate({path:'follows', populate: { path: 'posts'}}); // populate subpath
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -114,13 +115,63 @@ const resolvers = {
 
     // addComment
     // takes postId
+    addComment: async (_parent, { postId, commentText }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const post = await Post.findOneAndUpdate(
+        { _id: postId },
+        { $push: { comments: {username: context.user.username, commentText}}},
+        { new: true }
+      );
+
+      return post;
+    },
 
     // deleteComment
     // takes postId and commentId
+    deleteComment: async (_parent, { postId, commentId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const userCheck = await Post.findOne(
+        { _id: postId, comments: { $elemMatch: { _id: commentId }}}
+      )
+
+      // console.log(userCheck.comments[0].username);
+      // console.log(userCheck.comments.length);
+
+      // check if data exists
+      if (userCheck.comments.length === 0 || !userCheck) {
+        return 'No match for that user & comment'
+      }
+
+      // check if comment user matches the context user
+      if (userCheck.comments[0].username !== context.user.username) {
+        return 'No match for that user & comment'
+      }
+
+      // console.log(context.user.username);
+
+      // remove comment
+      const post = await Post.findOneAndUpdate(
+        { _id: postId },
+        { $pull: { comments: { _id: commentId }}},
+        { new: true }
+      );
+
+      return userCheck;
+    },
+
+
 
     // deletePost
 
-    // like a post ?? not NoSQL, and not tech haven.
+    // likePost
+    
+    // rateRecipe 
 
 
   }
