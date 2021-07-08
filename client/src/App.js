@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import Nav from './components/Nav';
 import Main from './components/Main';
@@ -14,7 +14,7 @@ import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:3001/graphql'
+  
   request: operation => {
     const token = localStorage.getItem('id_token');
 
@@ -24,7 +24,8 @@ const client = new ApolloClient({
       }
     })
   },
-  uri: '/graphql'
+  uri: 'http://localhost:3001/graphql'
+  // uri: '/graphql'
 });
 
 

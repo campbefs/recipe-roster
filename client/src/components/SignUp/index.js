@@ -8,6 +8,8 @@ import { ADD_USER } from '../../utils/mutations'
 
 
 const SignUp = () => {
+
+
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   // set state for form validation
@@ -23,18 +25,19 @@ const SignUp = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    
         // use try/catch instead of promises to handle errors
       try {
         // execute addUser mutation and pass in variable data from form
         const { data } = await addUser({
           variables: { ...userFormData}
         });
-  
+        console.log(data);
+
         Auth.login(data.addUser.token)
   
       } catch (e) {
         console.error(e);
-    
       }
     
 

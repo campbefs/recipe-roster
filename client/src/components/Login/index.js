@@ -10,7 +10,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
 
 
-function Login() {
+const Login = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -47,20 +47,33 @@ function Login() {
   return (
     <div className='loginForm' >
     <Segment compact padded>
-      <Form>
+    <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <h1>Welcome Back!</h1>
         <Form.Field>
           <label>Email</label>
-          <input placeholder="Enter email address" />
+          <input 
+          type='email'
+          placeholder='Your email address'
+          name='email'
+          onChange={handleInputChange}
+          value={userFormData.email}
+          required
+          />
         </Form.Field>
         <Form.Field>
           <label>Password</label>
-          <input placeholder="Enter password" />
+          <input 
+          type='password'
+          placeholder='Your password'
+          name='password'
+          onChange={handleInputChange}
+          value={userFormData.password}
+          required
+          />
         </Form.Field>
-        <Button type="submit"
-        // onClick={() => {
-          
-        // }}
+        <Button disabled={!(userFormData.email && userFormData.password)}
+          type='submit'
+          variant='success'
         >Submit</Button>
       </Form>
     </Segment>
