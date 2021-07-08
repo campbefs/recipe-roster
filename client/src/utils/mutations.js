@@ -25,15 +25,9 @@ export const ADD_USER = gql`
 
 export const ADD_RECIPE = gql`
 mutation addRecipe($uri:String!, $label:String!, 
-<<<<<<< HEAD
-    $image:String, $ingredientLines:[String]) {
-  addRecipe( input:{ uri: $uri, label:$label, 
-      image:$image, ingredientLines:$ingredientLines})
-=======
   			$image:String, $ingredientLines:[String], $url: String) {
   addRecipe( input:{ uri: $uri, label:$label, 
     		image:$image, ingredientLines:$ingredientLines, url:$url})
->>>>>>> main
     {
       _id
       uri

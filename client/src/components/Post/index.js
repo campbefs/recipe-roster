@@ -14,7 +14,8 @@ import "./post.css";
 import { useQuery } from '@apollo/client'
 import { GET_SINGLE_POST } from '../../utils/queries'
 
-const SinglePost = () => {
+
+const Post = () => {
   // const { id: postId } = useParams();
 
   const { loading, error, data } = useQuery(GET_SINGLE_POST);
@@ -72,4 +73,4 @@ const SinglePost = () => {
   );
 }
 
-export default SinglePost;
+export default Post;
