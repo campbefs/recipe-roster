@@ -10,8 +10,11 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id})
           .select('-__v -password')
-          .populate('follows')
-          .populate('posts')
+          .populate({path:'follows', 
+                  populate: { path: 'posts',
+                      populate: {path: 'recipe'}
+                  }})
+          .populate({path:'posts', populate: { path: 'recipe'}}) // populate subpath
 
         return userData;
       }
@@ -25,9 +28,13 @@ const resolvers = {
 
         const userData = await User.findOne({ username })
           .select('-__v -password')
-          .populate('follows')
-          .populate('posts')
+          .populate({path:'follows', 
+                  populate: { path: 'posts',
+                      populate: {path: 'recipe'}
+                  }})
+          .populate({path:'posts', populate: { path: 'recipe'}}) // populate subpath
         
+
         if (!userData) {
           throw new UserInputError('No User Found');
         }
@@ -45,6 +52,7 @@ const resolvers = {
 
         const postData = await Post.findOne({ _id: postId })
           .select('-__v')
+          .populate('recipe');
 
         if (!postData) {
           throw new UserInputError('No Post Found');
@@ -127,8 +135,13 @@ const resolvers = {
       if (context.user) {
         // console.log(recipeId);
 
-        // Create the Post
-        const post = await Post.create( {recipeId, username: context.user.username })
+        // Create the Post & push recipeID to array 
+        const post = await Post.create( { recipe: recipeId, username: context.user.username });
+        // post = await Post.findByIdAndUpdate(
+        //   { _id: post._id },
+        //   { $push: { recipe: recipeId }},
+        //   { new: true }
+        // )
           // .populate('recipes'); // doesn't work on create
 
         // add post ID to user model
@@ -158,17 +171,25 @@ const resolvers = {
       // console.log('recipeId: ', recipe._id);
 
       // Create the Post
-      const post = await Post.create( {
-                          recipeId: recipe._id, 
+      const postData = await Post.create( {
+                          recipe: recipe._id,
                           username: context.user.username 
                         })
+      // post = await Post.findOneAndUpdate(
+      //   {_id: post._id},
+      //   { $push: {recipe: recipe._id}}
+      // )
 
       // add post ID to user model
       await User.findByIdAndUpdate(
         { _id: context.user._id },
-        { $push: { posts: post._id }},
+        { $push: { posts: postData._id }},
         { new: true }
       )
+      
+      // query post again to populate recipe
+      const post = await Post.findOne({ _id: postData._id })
+          .populate('recipe');
 
       return post;
     },
@@ -248,7 +269,7 @@ const resolvers = {
         { new: true }
       );
 
-      return userCheck;
+      return post;
     },
 
     // deletePost
@@ -324,8 +345,6 @@ const resolvers = {
         // { $push: { ratings: 1, ratingUsers: "testrating1" }}, // for testing
         { new: true }
       );
-
-      console.log(recipe);
       
       // add username to Recipe -- above
 

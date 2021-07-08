@@ -88,7 +88,7 @@ recipeSchema.virtual('avgRating').get(function () {
   if (this.ratings.length === 0) {
     return 0;
   } else {
-    return sum / this.ratings.length;
+    return Math.round(sum / this.ratings.length * 10) / 10;
   }
 });
 

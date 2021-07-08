@@ -34,7 +34,7 @@ const typeDefs = gql`
   type Post {
     _id: ID
     username: String
-    recipeId: ID
+    recipe: Recipe    # ref Recipe model
     comments: [Comment]
     likes: [String]
     createdAt: String
@@ -48,6 +48,7 @@ const typeDefs = gql`
     email: String
     follows: [User]
     posts: [Post]
+    postCount: Int
   }
 
   type Auth {
@@ -111,7 +112,7 @@ const typeDefs = gql`
 
     likePost(postId: ID!): Post # OK
 
-    rateRecipe(recipeId: ID!, rating: Int): Recipe
+    rateRecipe(recipeId: ID!, rating: Int): Recipe # OK
 
   }
 
