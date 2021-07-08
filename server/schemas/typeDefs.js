@@ -82,6 +82,8 @@ const typeDefs = gql`
 
     getSinglePost(postId: ID!): Post # OK
 
+    getAllPosts(userId: ID): [Post]
+
     getSingleRecipe(recipeId: ID, uri: String): Recipe # OK
 
     myFeed: [Post] # OK

@@ -77,6 +77,30 @@ export const GET_SINGLE_USER_PROFILE = gql`
   }
 `;
 
+export const GET_POSTS = gql`
+  query getAllPosts($userId:ID) {
+    getAllPosts(userId:$userId) {
+
+      username
+      recipe {
+        _id
+        label
+        ingredientLines
+      }
+      comments{
+        commentId
+        commentText
+        username
+        createdAt
+      }
+      commentCount
+      likeCount
+      createdAt
+    }
+  }
+
+`;
+
 export const GET_SINGLE_POST = gql`
   query getSinglePost($postId:ID!) {
     getSinglePost(postId:$postId) {

@@ -7,9 +7,9 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
-import LikedPost from './components/LikedPosts';
+import LikedPost from './components/Posts';
 import RecipeSearch from './components/RecipeSearch'
-import Post from './components/Post';
+import Posts from './components/Posts';
 
 import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
@@ -31,7 +31,7 @@ const client = new ApolloClient({
 
 
 function App() {
-  const pages = [<Main/>, <Home/>, <Profile/>, <LikedPost/>, <Login/>, <SignUp/>];
+  const pages = [<Main/>, <Home/>, <Profile/>, <LikedPost/>, <Login/>, <SignUp/>, <RecipeSearch/>, <Posts/>];
   const [page, setPage] = useState(pages[0]);
 
   return (
@@ -39,6 +39,7 @@ function App() {
       <Router>
     <div className='App'>
       {<Nav setPage={setPage} pages={pages}/>}
+      {/* <Post/> */}
       {page} 
       {/* <RecipeSearch/> */}
 
