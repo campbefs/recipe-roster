@@ -84,7 +84,7 @@ const typeDefs = gql`
 
     getSingleRecipe(recipeId: ID, uri: String): Recipe # OK
 
-    myFeed: [Post]
+    myFeed: [Post] # OK
 
   }
 

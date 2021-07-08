@@ -24,8 +24,10 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_RECIPE = gql`
-  mutation addRecipe($uri:String!, $label:String!) {
-    addRecipe( input:{ uri: $uri, label:$label})
+mutation addRecipe($uri:String!, $label:String!, 
+    $image:String, $ingredientLines:[String]) {
+  addRecipe( input:{ uri: $uri, label:$label, 
+      image:$image, ingredientLines:$ingredientLines})
     {
       _id
       uri
@@ -61,9 +63,14 @@ export const CREATE_POST = gql`
   }
 `;
 
+// ingredientLines, image, url
+
 export const ADD_RECIPE_AND_POST = gql`
-  mutation addRecipeAndPost ($uri:String!, $label:String!){
-    addRecipeAndPost(input:{ uri: $uri, label:$label}) {
+  mutation addRecipeAndPost($uri:String!, $label:String!, 
+          $image:String, $ingredientLines:[String]) {
+    addRecipeAndPost( input:{ uri: $uri, label:$label, 
+          image:$image, ingredientLines:$ingredientLines})
+    {
       username
       recipe {
         _id
@@ -166,3 +173,4 @@ export const RATE_RECIPE = gql`
     }
   }
 `;
+
