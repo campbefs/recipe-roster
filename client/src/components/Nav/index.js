@@ -12,20 +12,20 @@ function Nav(props) {
       </Header>
 
       <Header as="h3" floated="right">
-        <Button onClick={() => props.setPage(props.pages[4])}>
+        <Button onClick={() => window.location.href = "/login" } >
           Login</Button>
-        <Button onClick={() => props.setPage(props.pages[5])}>
+        <Button onClick={() => window.location.href = "/signup" } >
           Sign Up</Button>
       </Header>
 
       <Header as="h3" floated="right">
       <Dropdown icon='dropdown'>
     <Dropdown.Menu>
-      <Dropdown.Item text='Go Home' onClick={() => props.setPage(props.pages[1])} />
-      <Dropdown.Item text='View Profile' onClick={() => props.setPage(props.pages[2])} />
-      <Dropdown.Item text='Liked Recipes' onClick={() => props.setPage(props.pages[3])}  />
+      <Dropdown.Item text='Go Home' onClick={() => window.location.href = "/home" } />
+      <Dropdown.Item text='View Profile' onClick={() => window.location.href = "/profile" } />
+      <Dropdown.Item text='Liked Recipes' onClick={() => window.location.href = "/likedpost" } />
       <Dropdown.Divider/>
-      <Dropdown.Item text='Logout' onClick={() => props.setPage(props.pages[0])} />
+      <Dropdown.Item text='Logout' onClick={() => window.location.href = "/" } />
       
      </Dropdown.Menu>
   </Dropdown>
