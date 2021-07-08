@@ -19,9 +19,7 @@ export const GET_ME = gql`
           username
           commentText
         }
-        createdAt
-      }
-    }
+        createdAt      }    }
   }
 `;
 
@@ -123,6 +121,20 @@ export const GET_SINGLE_RECIPE = gql`
       updated
       avgRating
       ratingCount
+    }
+  }
+`;
+
+export const MY_FEED = gql`
+  query {
+    myFeed {
+      _id
+      username
+      createdAt
+      recipe{
+        label
+        image
+      }
     }
   }
 `;

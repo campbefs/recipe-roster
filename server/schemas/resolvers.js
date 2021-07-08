@@ -22,6 +22,32 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
+    myFeed: async (_parent, _args, context) => {
+      if (context.user) {
+
+        // find your friend's usernames
+        const userData = await User.findOne({ _id: context.user._id})
+          .select('follows')
+          .populate('follows');
+
+        let followArr = [];
+        for (i=0; i<userData.follows.length;i++) {
+          followArr.push(userData.follows[i].username);
+        }
+
+
+        // Grab your friend's posts
+        const post = await Post.find({'username': { $in: followArr }})
+              .populate('recipe')
+              .sort([['createdAt', -1]])
+              .limit(10);
+
+        return post;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+
     // getSingleUser
     getSingleUser: async (_parent, { username }, context) => {
       if (context.user) {
