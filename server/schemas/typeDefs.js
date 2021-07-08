@@ -30,7 +30,7 @@ const typeDefs = gql`
     avgRating: Float
     ratingCount: Int
   }
-
+ 
   type Post {
     _id: ID
     username: String
