@@ -13,6 +13,9 @@ import {
 } from "semantic-ui-react";
 import "./search.css";
 
+
+
+
 const RecipeSearch = () => {
   // state for holding returned recipe api data
   const [searchedRecipes, setSearchedRecipes] = useState([]);
@@ -44,7 +47,8 @@ const RecipeSearch = () => {
         let image = hits[i].recipe.image;
         let label = hits[i].recipe.label;
         let ingredientLines = hits[i].recipe.ingredientLines;
-        recipeData.push({ uri, image, label, ingredientLines });
+        let url = hits[i].recipe.url;
+        recipeData.push({ uri, image, label, ingredientLines, url });
       }
       console.log(recipeData);
 

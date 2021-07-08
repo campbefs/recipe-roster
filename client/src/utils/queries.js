@@ -85,6 +85,8 @@ export const GET_SINGLE_POST = gql`
         _id
         label
         ingredientLines
+        image
+        url
       }
       comments{
         commentId

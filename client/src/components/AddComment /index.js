@@ -5,40 +5,16 @@ import { ADD_COMMENT } from "../../utils/mutations";
 import {
   GET_ME,
   GET_SINGLE_POST,
-  GET_SINGLE_RECIPE,
 } from "../../utils/queries";
 
-function AddComment() {
+function AddComment({ postId }) {
   const [commentText, setCommentText] = useState("");
-  const [characterCount, setCharacterCount] = useState(0);
+  const [addComment] = useMutation(ADD_COMMENT);
 
-  const [addComment, { error }] = useMutation(ADD_COMMENT, {
-    update(cache, { data: { addComment } }) {
-      try {
-        const { comments } = cache.readQuery({
-          query: GET_SINGLE_POST.comments,
-        });
-        cache.writeQuery({
-          query: QUERY_SINGLE_POST.comments,
-          data: { comments: [addComment, ...comments] },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-
-      const { me } = cache.readQuery({ query: GET_ME });
-      cache.writeQuery({
-        query: GET_ME,
-        data: { me: { ...me, comments: [...me.comments, addComment] } },
-      });
-    },
-  });
 
   const handleChange = (event) => {
-    if (event.target.value.length <= 300) {
       setCommentText(event.target.value);
-      setCharacterCount(event.target.value.length);
-    }
+    
   };
 
   const handleFormSubmit = async (event) => {
@@ -46,10 +22,9 @@ function AddComment() {
 
     try {
       await addComment({
-        variables: { commentText },
+        variables: { commentText, postId },
       });
       setCommentText("");
-      setCharacterCount(0);
     } catch (e) {
       console.error(e);
     }

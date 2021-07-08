@@ -1,9 +1,10 @@
-import React from "react";
+// see SignupForm.js for comments
+import React, { useState } from 'react';
 import { Button, Form, Segment } from "semantic-ui-react";
 import './login.css'
 
 // import { loginUser } from '../utils/API';
-// import Auth from '../../utils/auth';
+import Auth from '../../utils/auth';
 
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
@@ -44,7 +45,7 @@ const Login = () => {
   };
 
   return (
-     <div className='loginForm' >
+    <div className='loginForm' >
     <Segment compact padded>
     <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <h1>Welcome Back!</h1>

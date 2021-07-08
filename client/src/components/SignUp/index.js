@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { Button, Form, Segment } from "semantic-ui-react";
 import '../Login/login.css'
-
 // import { createUser } from '../utils/API';
-// import Auth from '../../utils/auth';
+import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations'
+
 
 const SignUp = () => {
 

@@ -7,9 +7,10 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import Post from './components/SinglePost'
 import LikedPost from './components/LikedPosts';
+
 import RecipeSearch from './components/RecipeSearch'
-import Post from './components/Post'
 
 import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
@@ -40,7 +41,7 @@ function App() {
     <div className='App'>
       {<Nav setPage={setPage} pages={pages}/>}
       {page} 
-
+      {/* <Post/> */}
       </div>
       </Router>
  </ApolloProvider>

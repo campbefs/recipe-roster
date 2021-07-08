@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import {
   Grid,
   Image,
@@ -9,23 +9,23 @@ import {
   Button
 } from "semantic-ui-react";
 import Comments from '../Comments'
-import hat from "../../assets/images/chefhat.jpeg";
 import "./post.css";
 // import Auth from '../../utils/auth'
 import { useQuery } from '@apollo/client'
 import { GET_SINGLE_POST } from '../../utils/queries'
 
-const Post = (props) => {
-  const { id: getSinglePostPostId} = useParams();
-  const { loading, data } = useQuery(GET_SINGLE_POST, {
-    variables: { id: getSinglePostPostId }
-  });
+const SinglePost = () => {
+  // const { id: postId } = useParams();
 
-  const post = data?.getSinglePost || {};
+  const { loading, error, data } = useQuery(GET_SINGLE_POST);
 
-  if(loading) {
-    return <div>Loading...</div>
-  }
+  if (loading) return 'Loading...'
+  if (error) return 'Oops! Something went wrong...'
+
+  // const post = data?.post || {};
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
@@ -34,7 +34,7 @@ const Post = (props) => {
           <Grid stackable divided>
             <Grid.Row  columns={2}>
               <Grid.Column>
-                <Image src={getSinglePost.image} />
+                <Image src={data.image} />
               </Grid.Column>
               <Grid.Column className='rightColumn'>
                 <Header dividing>
@@ -57,9 +57,10 @@ const Post = (props) => {
                     </List.Item>
                   </List>
                 </Header>
-                <h1>{getSinglePost.label}</h1>
+                <h1>{data.label}</h1>
                 <h2>Ingredients</h2>
-                <List bulleted items={getSinglePost.ingredientLines} />
+                <List bulleted items={data.ingredientLines} />
+                <p><a href={data.url}>Click here</a> to try this recipe now.</p>
                 <Comments/>
               </Grid.Column>
             </Grid.Row>
@@ -71,4 +72,4 @@ const Post = (props) => {
   );
 }
 
-export default Post;
+export default SinglePost;
