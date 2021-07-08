@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Segment,
   Grid,
   Image,
-  Input,
-  Header,
-  Button,
   List,
 } from "semantic-ui-react";
 import hat from "../../assets/images/chefhat.jpeg";

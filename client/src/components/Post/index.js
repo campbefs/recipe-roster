@@ -11,19 +11,21 @@ import {
 import Comments from '../Comments'
 import hat from "../../assets/images/chefhat.jpeg";
 import "./post.css";
+// import Auth from '../../utils/auth'
+import { useQuery } from '@apollo/client'
+import { GET_SINGLE_POST } from '../../utils/queries'
 
+const Post = (props) => {
+  const { id: getSinglePostPostId} = useParams();
+  const { loading, data } = useQuery(GET_SINGLE_POST, {
+    variables: { id: getSinglePostPostId }
+  });
 
-function Post() {
-  const ingredients = [
-    "1/2 cup shredded cheese",
-    "8oz elbow pasta",
-    "1 cup milk",
-    "1/2 yellow onion",
-    "1/2 teaspoon paprika",
-    "1 teaspoon salt",
-    "3/4 teaspoon pepper",
-    "1/4 cup of unsalted butter",
-  ];
+  const post = data?.getSinglePost || {};
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -32,7 +34,7 @@ function Post() {
           <Grid stackable divided>
             <Grid.Row  columns={2}>
               <Grid.Column>
-                <Image src={hat} />
+                <Image src={getSinglePost.image} />
               </Grid.Column>
               <Grid.Column className='rightColumn'>
                 <Header dividing>
@@ -55,9 +57,9 @@ function Post() {
                     </List.Item>
                   </List>
                 </Header>
-                <h1>Post Title Goes Here</h1>
+                <h1>{getSinglePost.label}</h1>
                 <h2>Ingredients</h2>
-                <List bulleted items={ingredients} />
+                <List bulleted items={getSinglePost.ingredientLines} />
                 <Comments/>
               </Grid.Column>
             </Grid.Row>
