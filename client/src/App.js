@@ -9,7 +9,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import LikedPost from './components/LikedPosts';
 import RecipeSearch from './components/RecipeSearch'
-import Post from './components/Post'
+import Post from './components/Post';
 
 import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
@@ -40,9 +40,9 @@ function App() {
     <div className='App'>
       {<Nav setPage={setPage} pages={pages}/>}
       {page} 
-      <RecipeSearch/>
+      {/* <RecipeSearch/> */}
 
-      </div>
+    </div>
       </Router>
  </ApolloProvider>
   );
