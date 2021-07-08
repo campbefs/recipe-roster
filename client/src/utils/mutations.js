@@ -25,9 +25,9 @@ export const ADD_USER = gql`
 
 export const ADD_RECIPE = gql`
 mutation addRecipe($uri:String!, $label:String!, 
-    $image:String, $ingredientLines:[String]) {
+  			$image:String, $ingredientLines:[String], $url: String) {
   addRecipe( input:{ uri: $uri, label:$label, 
-      image:$image, ingredientLines:$ingredientLines})
+    		image:$image, ingredientLines:$ingredientLines, url:$url})
     {
       _id
       uri
@@ -67,14 +67,15 @@ export const CREATE_POST = gql`
 
 export const ADD_RECIPE_AND_POST = gql`
   mutation addRecipeAndPost($uri:String!, $label:String!, 
-          $image:String, $ingredientLines:[String]) {
+          $image:String, $ingredientLines:[String], $url: String) {
     addRecipeAndPost( input:{ uri: $uri, label:$label, 
-          image:$image, ingredientLines:$ingredientLines})
+          image:$image, ingredientLines:$ingredientLines, url:$url})
     {
       username
       recipe {
         _id
         uri
+        url
         label
       }
       createdAt
