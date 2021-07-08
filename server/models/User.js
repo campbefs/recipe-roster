@@ -33,12 +33,6 @@ const userSchema = new Schema(
         ref: 'Post'
       }
     ],
-    // postLikes: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Post'
-    //   }
-    // ],
     
   },
   {

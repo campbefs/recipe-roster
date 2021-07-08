@@ -15,11 +15,12 @@ const postSchema = new Schema({
       type: String,
       required: [true, 'Username is required']
     },
-    recipeId: {
+    recipe: {
       type: Schema.Types.ObjectId,
       ref: 'Recipe'
     },
     comments: [commentSchema],
+    likes: [String],
     createdAt: {
       type: Date,
       default: Date.now,
@@ -36,6 +37,10 @@ const postSchema = new Schema({
 // virtual - post count
 postSchema.virtual('commentCount').get(function () {
   return this.comments.length;
+});
+
+postSchema.virtual('likeCount').get(function () {
+  return this.likes.length;
 });
 
 const Post = model('Post', postSchema);

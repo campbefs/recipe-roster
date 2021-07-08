@@ -6,7 +6,7 @@ const typeDefs = gql`
     commentId: ID
     commentText: String
     username: String
-    createdAt: Float
+    createdAt: String
   }
 
   type Recipe {
@@ -25,17 +25,21 @@ const typeDefs = gql`
     mealType: [String]
     dishType: [String]
     ratings: [Int]
-    updated: Float
-    # avgRating: Float
-    # ratingCount: Int
+    ratingUsers: [String]
+    updated: String
+    avgRating: Float
+    ratingCount: Int
   }
 
   type Post {
     _id: ID
     username: String
-    recipeId: ID
+    recipe: Recipe    # ref Recipe model
     comments: [Comment]
+    likes: [String]
     createdAt: String
+    commentCount: Int
+    likeCount: Int
   }
 
   type User {
@@ -44,6 +48,7 @@ const typeDefs = gql`
     email: String
     follows: [User]
     posts: [Post]
+    postCount: Int
   }
 
   type Auth {
@@ -52,6 +57,7 @@ const typeDefs = gql`
   }
 
   input RecipeInput {
+    _id: ID
     uri: String!
     label: String!
     image: String
@@ -68,14 +74,15 @@ const typeDefs = gql`
     ratings: [Float]
   }
 
+
   type Query {
     me: User # OK
 
-    getSingleUser(username: String!): User
+    getSingleUser(username: String!): User # OK
 
-    getSinglePost(postId: ID!): Post 
+    getSinglePost(postId: ID!): Post # OK
 
-    getSingleRecipe(uri: String!): Recipe
+    getSingleRecipe(recipeId: ID, uri: String): Recipe # OK
 
     getFriendPosts(username: String!): User
 
@@ -89,21 +96,23 @@ const typeDefs = gql`
 
     createPost(recipeId: ID!): Post # OK
 
+    addRecipeAndPost(input: RecipeInput!): Post # OK
+
     addFollow(followId: ID!): User # OK
 
-    # remove follow 
+    # remove follow - skip for V1
 
     addComment(postId: ID!, commentText: String!): Post  # OK 
 
-    deleteComment(postId: ID!, commentId: ID!): Post # 
+    deleteComment(postId: ID!, commentId: ID!): Post # OK
 
-    # deletePost(postId: ID!): Post # 
+    deletePost(postId: ID!): Post # OK
 
-    # deleteRecipe
+    # deleteRecipe - NO. then you'd have to delete all the posts with it
 
-    # likePost
+    likePost(postId: ID!): Post # OK
 
-    # rateRecipe
+    rateRecipe(recipeId: ID!, rating: Int): Recipe # OK
 
   }
 
