@@ -1,6 +1,13 @@
 import { searchRecipes } from "../../utils/API";
 import React, { useState, useEffect } from "react";
-import { Form, Container, Button, Card, Image, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Container,
+  Button,
+  Card,
+  Image,
+  Segment,
+} from "semantic-ui-react";
 
 const RecipeSearch = () => {
   // state for holding returned recipe api data
@@ -24,68 +31,76 @@ const RecipeSearch = () => {
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
-
-      const { items } = await response.json();
-
-      const recipeData = items.map((recipe) => ({
-        recipeId: recipe.uri,
-        image: recipe.image,
-        title: recipe.label,
-        ingredients: recipe.ingredients.text,
-        url: recipe.url,
-      }));
      
+      const { hits } = await response.json();
+      
+      const recipeData = []
+      for (let i=0; i<hits.length; i++) {
+        let uri = hits[i].recipe.uri;
+        let image = hits[i].recipe.image;
+        let label = hits[i].recipe.label;
+        let ingredientLines = hits[i].recipe.ingredientLines;
+        recipeData.push({uri, image, label, ingredientLines});
+      };
+      console.log(recipeData)
+
+    //   const recipeData = hits.map(() => ({
+    //     recipeId: recipe.uri,
+    //     image: recipe.image,
+    //     title: recipe.label,
+    //     ingredients: recipe.ingredients.text,
+    //     url: recipe.url,
+    //   }));
+      
       setSearchedRecipes(recipeData);
-      setSearchInput('');
+      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
   };
 
+  return (
+    <>
+      <Container>
+        <h1>Search for Recipes!</h1>
+        <form onSubmit={handleFormSubmit} >
+            <input
+              name="searchInput"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              type="text"
+              placeholder="Search for recipes... "
+            />
+            <Button type="submit" variant="success">
+              Search
+            </Button>
+        
+        </form>
+      </Container>
 
-return (
-  <>
-    <Container>
-      <h1>Search for Recipes!</h1>
-      <Form onSubmit={handleFormSubmit}>
-        <Form.Field>
-          <input
-            name="searchInput"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            type="text"
-            placeholder="Search for recipes... "
-          />
-        </Form.Field>
-        <Button 
-        type="submit"
-        variant="success"
-        >
-          Search
-        </Button>
-      </Form>
-    </Container>
-
-    <Segment>
-      <h2>
-        {searchedRecipes.length
-          ? `Viewing ${searchedRecipes.length} results:`
-          : `Search for a recipe to get cookin'!`}
-      </h2>
-        {searchedRecipes.map((recipe) => {
-            return (
-      <Card key={recipe.uri}>
-        <Card.Content>
-          <Card.Header>{recipe.label}</Card.Header>
-          <Image src={recipe.image} alt={`Image of ${recipe.label} finished product`}/>
-        </Card.Content>
-        </Card>
-            );
+      <Segment>
+        <h2>
+          {searchedRecipes.length
+            ? `Viewing ${searchedRecipes.length} results:`
+            : `Search for a recipe to get cookin'!`}
+        </h2>
+        {searchedRecipes.map((recipeData) => {
+          return (
+            <Card key={recipeData.uri}>
+              <Card.Content>
+                <Card.Header>{recipeData.label}</Card.Header>
+                <Image
+                  src={recipeData.image}
+                  alt={`Image of ${recipeData.label} finished product`}
+                />
+              </Card.Content>
+            </Card>
+          );
         })}
-    </Segment>
-  </>
-  
-)};
+      </Segment>
+    </>
+  );
+};
 
 export default RecipeSearch;
 
