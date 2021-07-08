@@ -39,11 +39,7 @@ function App() {
       <Router>
     <div className='App'>
       {<Nav setPage={setPage} pages={pages}/>}
-<<<<<<< HEAD
-      {page}
-=======
       {page} 
->>>>>>> main
       {/* <RecipeSearch/> */}
 
     </div>
