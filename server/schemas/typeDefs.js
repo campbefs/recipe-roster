@@ -68,28 +68,49 @@ const typeDefs = gql`
     dishType: [String]
     ratings: [Float]
   }
+
+
   type Query {
     me: User # OK
+
     getSingleUser(username: String!): User # OK
+
     getSinglePost(postId: ID!): Post # OK
+
     getSingleRecipe(recipeId: ID, uri: String): Recipe # OK
+
     myFeed: [Post] # OK
+
   }
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth # OK
     login(email: String!, password: String!): Auth # OK
+
     addRecipe(input: RecipeInput!): Recipe # OK
+
     createPost(recipeId: ID!): Post # OK
+
     addRecipeAndPost(input: RecipeInput!): Post # OK
+
     addFollow(followId: ID!): User # OK
+
     # remove follow - skip for V1
+
     addComment(postId: ID!, commentText: String!): Post  # OK 
+
     deleteComment(postId: ID!, commentId: ID!): Post # OK
+
     deletePost(postId: ID!): Post # OK
+
     # deleteRecipe - NO. then you'd have to delete all the posts with it
+
     likePost(postId: ID!): Post # OK
+
     rateRecipe(recipeId: ID!, rating: Int): Recipe # OK
+
   }
+
 `;
 
 module.exports = typeDefs;
