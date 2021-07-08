@@ -15,7 +15,7 @@ import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
 
 const client = new ApolloClient({
-  
+
   request: operation => {
     const token = localStorage.getItem('id_token');
 
@@ -29,22 +29,37 @@ const client = new ApolloClient({
   // uri: '/graphql'
 });
 
-
 function App() {
-  const pages = [<Main/>, <Home/>, <Profile/>, <LikedPost/>, <Login/>, <SignUp/>];
-  const [page, setPage] = useState(pages[0]);
+  const pages = {};
+  pages["home"] = <Home />;
+  pages["profile"] = <Profile />;
+  pages["likedpost"] = <LikedPost />;
+  pages["login"] = <Login />;
+  pages["signup"] = <SignUp />;
+
+  const path = window.location.pathname.split("/")[1].toLowerCase();
+  console.log(path);
+
+  let component = <Main />;
+  if (pages[path]) {
+    component = pages[path]
+  }
+
+
+  // const [page, setPage] = useState(pages[url]);
+  const [page, setPage] = useState(component);
 
   return (
     <ApolloProvider client={client}>
       <Router>
-    <div className='App'>
-      {<Nav setPage={setPage} pages={pages}/>}
-      {page} 
-      {/* <RecipeSearch/> */}
+        <div className='App'>
+          {<Nav setPage={setPage} pages={pages} />}
+          {page}
+          {/* <RecipeSearch/> */}
 
-    </div>
+        </div>
       </Router>
- </ApolloProvider>
+    </ApolloProvider>
   );
 }
 
