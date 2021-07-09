@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Segment,
   Grid,
   Image,
   List,
 } from "semantic-ui-react";
-import hat from "../../assets/images/chefhat.jpeg";
+// import hat from "../../assets/images/chefhat.jpeg";
 import avatar from '../../assets/images/square-image.png'
 import "./home.css";
 import { useQuery, useMutation } from '@apollo/client'
@@ -14,13 +14,14 @@ import { GET_ME, MY_FEED } from '../../utils/queries';
 
 function Home() {
   // QUERY FEED
-  const { loading: loading1, data: feed } = useQuery(MY_FEED);
+  const { loading: loading1, data: feed, refetch: fetchFeed } = useQuery(MY_FEED);
   let feedData = feed?.myFeed || {};
   
-  const { loading: loading2, data: follow } = useQuery(GET_ME);
+  const { loading: loading2, data: follow, refetch: fetchFollows } = useQuery(GET_ME);
+  // console.log('data', data);
   let followData = follow?.me || {};
 
-  console.log(followData.follows);
+  console.log('follow: ', follow);
 
   // Loading - must come at bottom
   if (loading1) {

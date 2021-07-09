@@ -16,6 +16,7 @@ const resolvers = {
                   }})
           .populate({path:'posts', populate: { path: 'recipe'}}) // populate subpath
 
+        console.log('userData: ', userData);
         return userData;
       }
 
@@ -42,6 +43,7 @@ const resolvers = {
               .sort([['createdAt', -1]])
               .limit(10);
 
+        // console.log('post: ', post);
         return post;
       }
 

@@ -19,7 +19,9 @@ export const GET_ME = gql`
           username
           commentText
         }
-        createdAt      }    }
+        createdAt
+      }
+    }
   }
 `;
 
