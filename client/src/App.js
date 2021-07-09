@@ -30,17 +30,46 @@ const client = new ApolloClient({
 });
 
 function App() {
+<<<<<<< HEAD
   const pages = [<Main/>, <Home/>, <Profile/>, <LikedPost/>, <Login/>, <SignUp/>, <RecipeSearch/>, <Posts/>];
   const [page, setPage] = useState(pages[0]);
+=======
+  const pages = {};
+  pages["home"] = <Home />;
+  pages["profile"] = <Profile />;
+  pages["likedpost"] = <LikedPost />;
+  pages["login"] = <Login />;
+  pages["signup"] = <SignUp />;
+  pages["searchrecipes"] = <RecipeSearch/>
+  pages["post"] = <Post />;
+
+  const path = window.location.pathname.split("/")[1].toLowerCase();
+  console.log(path);
+
+  let component = <Main />;
+  if (pages[path]) {
+    component = pages[path]
+  }
+
+
+  // const [page, setPage] = useState(pages[url]);
+  const [page, setPage] = useState(component);
+>>>>>>> main
 
   return (
     <ApolloProvider client={client}>
       <Router>
+<<<<<<< HEAD
     <div className='App'>
       {<Nav setPage={setPage} pages={pages}/>}
       {/* <Post/> */}
       {page} 
       {/* <RecipeSearch/> */}
+=======
+        <div className='App'>
+          {<Nav setPage={setPage} pages={pages} />}
+          {page}
+>>>>>>> main
 
         </div>
       </Router>

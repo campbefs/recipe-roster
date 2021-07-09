@@ -133,5 +133,3 @@ const RecipeSearch = () => {
 };
 
 export default RecipeSearch;
-
-//  return <reactStuff />;
