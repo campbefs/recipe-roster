@@ -9,7 +9,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import LikedPost from './components/Posts';
 import RecipeSearch from './components/RecipeSearch'
-import Posts from './components/Posts';
+import Post from './components/Posts';
 
 import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
