@@ -12,12 +12,16 @@ import Comments from '../Comments'
 import hat from "../../assets/images/chefhat.jpeg";
 import "./post.css";
 import { GET_SINGLE_POST } from '../../utils/queries'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 
 function Post() {
 // const { data: { getSinglePost: postId } } = useQuery(GET_SINGLE_POST)
 // console.log(postId)
+
+  console.log('params', useParams());
+
 
   const ingredients = [
     "1/2 cup shredded cheese",

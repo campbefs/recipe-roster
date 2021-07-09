@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
 import Nav from './components/Nav';
 import Main from './components/Main';
@@ -31,13 +31,13 @@ const client = new ApolloClient({
 
 function App() {
   const pages = {};
-  pages["home"] = <Home />;
-  pages["profile"] = <Profile />;
-  pages["likedpost"] = <LikedPost />;
-  pages["login"] = <Login />;
-  pages["signup"] = <SignUp />;
-  pages["searchrecipes"] = <RecipeSearch/>
-  pages["post"] = <Post />;
+  // pages["home"] = <Home />;
+  // pages["profile"] = <Profile />;
+  // pages["likedpost"] = <LikedPost />;
+  // pages["login"] = <Login />;
+  // pages["signup"] = <SignUp />;
+  // pages["searchrecipes"] = <RecipeSearch/>
+  // pages["post/:id"] = <Post />;
 
   const path = window.location.pathname.split("/")[1].toLowerCase();
   console.log(path);
@@ -47,7 +47,6 @@ function App() {
     component = pages[path]
   }
 
-
   // const [page, setPage] = useState(pages[url]);
   const [page, setPage] = useState(component);
 
@@ -56,7 +55,18 @@ function App() {
       <Router>
         <div className='App'>
           {<Nav setPage={setPage} pages={pages} />}
-          {page}
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile/:username" component={Profile} />
+
+            <Route exact path="/searchrecipes" component={RecipeSearch} />
+            <Route exact path="/post/:postId" component={Post} />
+
+          </Switch>
 
         </div>
       </Router>

@@ -87,7 +87,7 @@ function Home() {
                           src={avatar}
                           avatar
                         />
-                        <span style={{marginLeft: "5px"}}>{follows.username}</span>
+                        <a style={{marginLeft: "5px"}}>{follows.username}</a>
                       </div>
                     </List.Item>
                     )
