@@ -10,6 +10,7 @@ import avatar from '../../assets/images/square-image.png'
 import "./home.css";
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_ME, MY_FEED, GET_ME_PROFILE } from '../../utils/queries';
+import { Link } from 'react-router-dom';
 
 
 function Home() {
@@ -23,11 +24,6 @@ function Home() {
   let followData = follow?.me || {};
 
   // console.log(follow);
-
-  // useEffect(() => {
-  //   // console.log(userData);
-  //   refetch();
-  // }, []);
 
   // Loading - must come at bottom
   if (loading1) {
@@ -51,11 +47,19 @@ function Home() {
             <Grid.Column>
               {feedData.map((post) => {
                 return (
-                  <>
-                    <h3 className='title'>{post.recipe.label}</h3>
-                    <p>{post.username}</p>
-                    <Image className='img' src={post.recipe.image} />
-                  </>
+                  <div style={{marginBottom: "50px"}}>
+                    <a className='click' onClick={() => {window.location.href=`/post/${post._id}`}}>
+                     <h3 className='title' style={{marginBottom: "8px"}}>{post.recipe.label}</h3>
+                    </a>
+                    <a onClick={() => {window.location.href=`/profile/${post.username}`}}>{post.username}</a>
+                    <a onClick={() => {window.location.href=`/post/${post._id}`}}>
+                      <Image 
+                        className='img' 
+                        src={post.recipe.image} 
+                        style={{marginTop: "20px"}} 
+                      />
+                    </a>
+                  </div>
                 );
               })}
             </Grid.Column>
@@ -75,12 +79,15 @@ function Home() {
                   followData.follows.map((follows) => {
                     return (
                       <List.Item>
-                      <div style={{marginBottom: "15px"}}>
+                      <div 
+                        style={{marginBottom: "15px", cursor: "pointer", fontWeight: "bold"}}
+                        onClick={() => {window.location.href=`/profile/${follows.username}`}}
+                      >
                         <Image
                           src={avatar}
                           avatar
                         />
-                        <span>{follows.username}</span>
+                        <span style={{marginLeft: "5px"}}>{follows.username}</span>
                       </div>
                     </List.Item>
                     )

@@ -22,6 +22,10 @@
     display: none;
 }
 
+a:hover {
+    cursor: pointer;
+}
+
 /* .img {
     position: relative;
 }
