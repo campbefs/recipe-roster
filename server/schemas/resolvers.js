@@ -87,7 +87,7 @@ const resolvers = {
     },
 
     // getAllPost
-    getAllPosts: async (_parent, { postId }, context) => {
+    getAllPosts: async (_parent, { _postId }, context) => {
       if (context.user) {
         const userData = await User.findOne({_id: context.user._id})
         const postData = await Post.find({ username: userData.username })

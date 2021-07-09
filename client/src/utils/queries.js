@@ -80,7 +80,7 @@ export const GET_SINGLE_USER_PROFILE = gql`
 export const GET_POSTS = gql`
   query getAllPosts($userId:ID) {
     getAllPosts(userId:$userId) {
-
+      _id
       username
       recipe {
         _id

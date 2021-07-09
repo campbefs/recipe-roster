@@ -10,6 +10,7 @@ import Profile from './components/Profile';
 import LikedPost from './components/Posts';
 import RecipeSearch from './components/RecipeSearch'
 import Posts from './components/Posts';
+import Post from './components/Post';
 
 import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';

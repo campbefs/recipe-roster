@@ -8,7 +8,8 @@ import {
   Image,
   Segment,
   List, 
-  Icon
+  Icon,
+  Input
 } from "semantic-ui-react";
 import { ADD_RECIPE_AND_POST } from '../../utils/mutations'
 import { useMutation } from '@apollo/client'
@@ -75,22 +76,25 @@ const RecipeSearch = () => {
 
   return (
     <>
-      <Container>
+      <div className='searchPage'>
+        <div className='header'>
         <h1>Search for Recipes!</h1>
-        <form onSubmit={handleFormSubmit} >
-            <input
+        </div>
+        <div className='searchForm'>
+        <Form onSubmit={handleFormSubmit} >
+            <Input
               name="searchInput"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               type="text"
               placeholder="Search for recipes... "
             />
-            <Button type="submit" variant="success">
-              Search
-            </Button>
+            <Button compact circular basic icon='search'type="submit" variant="success"/>
+          
         
-        </form>
-      </Container>
+        </Form>
+        </div>
+      </div>
 
       <Segment>
         <h2>
@@ -107,11 +111,11 @@ const RecipeSearch = () => {
                     <List.Item>
                     {recipeData.label}
                     </List.Item>
-                    <List.Item>
+                    {/* <List.Item>
                     <Icon name="heart outline" />
-                    </List.Item>
+                    </List.Item> */}
                     <List.Item>
-                    <Button  data-recipe={JSON.stringify(recipeData)} onClick={addRecipe}><Icon name="list"/></Button>
+                    <Button basic compact  data-recipe={JSON.stringify(recipeData)} onClick={addRecipe}><Icon name="list"/>Post recipe</Button>
                     </List.Item>
                   </List>
                 </Card.Header>

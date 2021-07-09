@@ -19,8 +19,6 @@ function Posts() {
   //   variables: { postId }
   // })
 
-  
-  
 
   return (
     <>

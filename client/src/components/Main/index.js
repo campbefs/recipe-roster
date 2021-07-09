@@ -10,7 +10,6 @@ function Main() {
           <h1>What do you want to eat?</h1>  
           <h3>The search for your answer ends here.</h3>
           <Image src={bgImg} centered />
-          <Icon name='arrow down' size='huge' className='icon'/>
         </div>
     )
 }
