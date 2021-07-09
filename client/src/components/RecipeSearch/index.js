@@ -7,18 +7,33 @@ import {
   Card,
   Image,
   Segment,
+  List, 
+  Icon,
+  Input
 } from "semantic-ui-react";
+import { ADD_RECIPE_AND_POST } from '../../utils/mutations'
+import { useMutation } from '@apollo/client'
+
 
 const RecipeSearch = () => {
   // state for holding returned recipe api data
   const [searchedRecipes, setSearchedRecipes] = useState([]);
   // state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
+  const [addRecipeAndPost] = useMutation(ADD_RECIPE_AND_POST);
 
   // state to hold saved recipeId values
   // const [savedRecipeIds, setSavedRecipeIds] = useState(getSavedRecipes());
 
-  // method to search for books and set state on form submit
+  
+  const addRecipe = async (event) => {
+    console.log(JSON.parse(event.target.dataset.recipe))
+    const { data } = await addRecipeAndPost({
+      variables: {...JSON.parse(event.target.dataset.recipe)}
+    })
+    console.log(data)
+  }
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -61,22 +76,25 @@ const RecipeSearch = () => {
 
   return (
     <>
-      <Container>
+      <div className='searchPage'>
+        <div className='header'>
         <h1>Search for Recipes!</h1>
-        <form onSubmit={handleFormSubmit} >
-            <input
+        </div>
+        <div className='searchForm'>
+        <Form onSubmit={handleFormSubmit} >
+            <Input
               name="searchInput"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               type="text"
               placeholder="Search for recipes... "
             />
-            <Button type="submit" variant="success">
-              Search
-            </Button>
+            <Button compact circular basic icon='search'type="submit" variant="success"/>
+          
         
-        </form>
-      </Container>
+        </Form>
+        </div>
+      </div>
 
       <Segment>
         <h2>
@@ -88,7 +106,19 @@ const RecipeSearch = () => {
           return (
             <Card key={recipeData.uri}>
               <Card.Content>
-                <Card.Header>{recipeData.label}</Card.Header>
+                <Card.Header>
+                <List horizontal>
+                    <List.Item>
+                    {recipeData.label}
+                    </List.Item>
+                    {/* <List.Item>
+                    <Icon name="heart outline" />
+                    </List.Item> */}
+                    <List.Item>
+                    <Button basic compact  data-recipe={JSON.stringify(recipeData)} onClick={addRecipe}><Icon name="list"/>Post recipe</Button>
+                    </List.Item>
+                  </List>
+                </Card.Header>
                 <Image
                   src={recipeData.image}
                   alt={`Image of ${recipeData.label} finished product`}

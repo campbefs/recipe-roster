@@ -7,8 +7,9 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
-import LikedPost from './components/LikedPosts';
+import LikedPost from './components/Posts';
 import RecipeSearch from './components/RecipeSearch'
+import Posts from './components/Posts';
 import Post from './components/Post';
 
 import { ApolloProvider } from '@apollo/client';
@@ -30,6 +31,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+<<<<<<< HEAD
   const pages = {};
   pages["home"] = <Home />;
   pages["profile"] = <Profile />;
@@ -48,14 +50,26 @@ function App() {
 
   // const [page, setPage] = useState(pages[url]);
   const [page, setPage] = useState(component);
+=======
+  const pages = [<Main/>, <Home/>, <Profile/>, <LikedPost/>, <Login/>, <SignUp/>, <RecipeSearch/>, <Posts/>];
+  const [page, setPage] = useState(pages[0]);
+>>>>>>> b59749e75d82bf2163f3c05759019079cb533fa2
 
   return (
     <ApolloProvider client={client}>
       <Router>
+<<<<<<< HEAD
         <div className='App'>
           {<Nav setPage={setPage} pages={pages} />}
           {page}
           {/* <RecipeSearch/> */}
+=======
+    <div className='App'>
+      {<Nav setPage={setPage} pages={pages}/>}
+      {/* <Post/> */}
+      {page} 
+      {/* <RecipeSearch/> */}
+>>>>>>> b59749e75d82bf2163f3c05759019079cb533fa2
 
         </div>
       </Router>
