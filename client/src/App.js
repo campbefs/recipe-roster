@@ -30,10 +30,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-<<<<<<< HEAD
-  const pages = [<Main/>, <Home/>, <Profile/>, <LikedPost/>, <Login/>, <SignUp/>, <RecipeSearch/>, <Posts/>];
-  const [page, setPage] = useState(pages[0]);
-=======
   const pages = {};
   pages["home"] = <Home />;
   pages["profile"] = <Profile />;
@@ -54,22 +50,13 @@ function App() {
 
   // const [page, setPage] = useState(pages[url]);
   const [page, setPage] = useState(component);
->>>>>>> main
 
   return (
     <ApolloProvider client={client}>
       <Router>
-<<<<<<< HEAD
-    <div className='App'>
-      {<Nav setPage={setPage} pages={pages}/>}
-      {/* <Post/> */}
-      {page} 
-      {/* <RecipeSearch/> */}
-=======
         <div className='App'>
           {<Nav setPage={setPage} pages={pages} />}
           {page}
->>>>>>> main
 
         </div>
       </Router>
