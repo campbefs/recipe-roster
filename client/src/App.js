@@ -36,6 +36,8 @@ function App() {
   pages["likedpost"] = <LikedPost />;
   pages["login"] = <Login />;
   pages["signup"] = <SignUp />;
+  pages["searchrecipes"] = <RecipeSearch/>
+  pages["post"] = <Post />;
 
   const path = window.location.pathname.split("/")[1].toLowerCase();
   console.log(path);
@@ -55,7 +57,6 @@ function App() {
         <div className='App'>
           {<Nav setPage={setPage} pages={pages} />}
           {page}
-          {/* <RecipeSearch/> */}
 
         </div>
       </Router>

@@ -21,9 +21,11 @@ function Nav(props) {
       <Header as="h3" floated="right">
       <Dropdown icon='dropdown'>
     <Dropdown.Menu>
+    <Dropdown.Item text='Search Recipes' onClick={() => window.location.href = "/searchrecipes" } />
       <Dropdown.Item text='Go Home' onClick={() => window.location.href = "/home" } />
       <Dropdown.Item text='View Profile' onClick={() => window.location.href = "/profile" } />
       <Dropdown.Item text='Liked Recipes' onClick={() => window.location.href = "/likedpost" } />
+      
       <Dropdown.Divider/>
       <Dropdown.Item text='Logout' onClick={() => window.location.href = "/" } />
       

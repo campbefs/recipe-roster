@@ -11,9 +11,14 @@ import {
 import Comments from '../Comments'
 import hat from "../../assets/images/chefhat.jpeg";
 import "./post.css";
+import { GET_SINGLE_POST } from '../../utils/queries'
+import { useQuery } from '@apollo/client'
 
 
 function Post() {
+// const { data: { getSinglePost: postId } } = useQuery(GET_SINGLE_POST)
+// console.log(postId)
+
   const ingredients = [
     "1/2 cup shredded cheese",
     "8oz elbow pasta",
