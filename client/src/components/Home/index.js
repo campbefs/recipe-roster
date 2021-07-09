@@ -5,10 +5,6 @@ import {
   Image,
   List,
 } from "semantic-ui-react";
-<<<<<<< HEAD
-// import hat from "../../assets/images/chefhat.jpeg";
-=======
->>>>>>> b59749e75d82bf2163f3c05759019079cb533fa2
 import avatar from '../../assets/images/square-image.png'
 import "./home.css";
 import { useQuery, useMutation } from '@apollo/client'
