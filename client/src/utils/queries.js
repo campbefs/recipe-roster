@@ -26,8 +26,8 @@ export const GET_ME = gql`
 `;
 
 export const GET_ME_PROFILE = gql`
-  query {
-    me {
+query {
+    me{
       _id
       username
       email

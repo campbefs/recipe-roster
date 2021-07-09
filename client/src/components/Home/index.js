@@ -9,19 +9,25 @@ import {
 import avatar from '../../assets/images/square-image.png'
 import "./home.css";
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_ME, MY_FEED } from '../../utils/queries';
+import { GET_ME, MY_FEED, GET_ME_PROFILE } from '../../utils/queries';
 
 
 function Home() {
   // QUERY FEED
-  const { loading: loading1, data: feed, refetch: fetchFeed } = useQuery(MY_FEED);
-  let feedData = feed?.myFeed || {};
   
-  const { loading: loading2, data: follow, refetch: fetchFollows } = useQuery(GET_ME);
-  // console.log('data', data);
+  const { loading: loading2, data: follow } = useQuery(GET_ME_PROFILE,
+     { fetchPolicy: "no-cache" }
+    );
+  const { loading: loading1, data: feed } = useQuery(MY_FEED);
+  let feedData = feed?.myFeed || {};
   let followData = follow?.me || {};
 
-  console.log('follow: ', follow);
+  // console.log(follow);
+
+  // useEffect(() => {
+  //   // console.log(userData);
+  //   refetch();
+  // }, []);
 
   // Loading - must come at bottom
   if (loading1) {

@@ -16,7 +16,6 @@ const resolvers = {
                   }})
           .populate({path:'posts', populate: { path: 'recipe'}}) // populate subpath
 
-        console.log('userData: ', userData);
         return userData;
       }
 
