@@ -8,7 +8,7 @@ function Nav(props) {
     <Segment basic>
       <Header as="h2" floated="left" className="header flex-row px-1">
         <Icon name="food" />
-        Recipe Roster
+        <span className="hover-link" onClick={() => window.location.href = "/home"}>Recipe Roster</span>
       </Header>
 
       <Header as="h3" floated="right">
@@ -23,7 +23,7 @@ function Nav(props) {
     <Dropdown.Menu>
     <Dropdown.Item text='Search Recipes' onClick={() => window.location.href = "/searchrecipes" } />
       <Dropdown.Item text='Go Home' onClick={() => window.location.href = "/home" } />
-      <Dropdown.Item text='View Profile' onClick={() => window.location.href = "/profile" } />
+      <Dropdown.Item text='My Profile' onClick={() => window.location.href = "/myprofile" } />
       <Dropdown.Item text='Liked Recipes' onClick={() => window.location.href = "/likedpost" } />
       
       <Dropdown.Divider/>

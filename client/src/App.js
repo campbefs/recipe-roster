@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
 import Nav from './components/Nav';
 import Main from './components/Main';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Home from './components/Home';
-import Profile from './components/Profile';
+import MyProfile from './components/MyProfile';
+import UserProfile from './components/UserProfile';
 import LikedPost from './components/LikedPosts';
 import RecipeSearch from './components/RecipeSearch'
 import Post from './components/Post';
@@ -31,13 +32,6 @@ const client = new ApolloClient({
 
 function App() {
   const pages = {};
-  pages["home"] = <Home />;
-  pages["profile"] = <Profile />;
-  pages["likedpost"] = <LikedPost />;
-  pages["login"] = <Login />;
-  pages["signup"] = <SignUp />;
-  pages["searchrecipes"] = <RecipeSearch/>
-  pages["post"] = <Post />;
 
   const path = window.location.pathname.split("/")[1].toLowerCase();
   console.log(path);
@@ -47,8 +41,6 @@ function App() {
     component = pages[path]
   }
 
-
-  // const [page, setPage] = useState(pages[url]);
   const [page, setPage] = useState(component);
 
   return (
@@ -56,7 +48,18 @@ function App() {
       <Router>
         <div className='App'>
           {<Nav setPage={setPage} pages={pages} />}
-          {page}
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/myprofile" component={MyProfile} />
+            <Route exact path="/profile/:username" component={UserProfile} />
+
+            <Route exact path="/searchrecipes" component={RecipeSearch} />
+            <Route exact path="/post/:postId" component={Post} />
+
+          </Switch>
 
         </div>
       </Router>

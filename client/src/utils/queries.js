@@ -19,13 +19,15 @@ export const GET_ME = gql`
           username
           commentText
         }
-        createdAt      }    }
+        createdAt
+      }
+    }
   }
 `;
 
 export const GET_ME_PROFILE = gql`
-  query {
-    me {
+query {
+    me{
       _id
       username
       email
@@ -36,9 +38,11 @@ export const GET_ME_PROFILE = gql`
       postCount
       posts {
         _id
+        username
         recipe {
           _id
           label
+          image
         }
         # comments {
         #   username
@@ -63,9 +67,11 @@ export const GET_SINGLE_USER_PROFILE = gql`
       postCount
       posts {
         _id
+        username
         recipe {
           _id
           label
+          image
         }
         # comments {
         #   username
@@ -85,6 +91,10 @@ export const GET_SINGLE_POST = gql`
         _id
         label
         ingredientLines
+        image
+        avgRating
+        ratingCount
+        ratingUsers
       }
       comments{
         commentId
@@ -93,6 +103,7 @@ export const GET_SINGLE_POST = gql`
         createdAt
       }
       commentCount
+      likes
       likeCount
       createdAt
     }
@@ -138,3 +149,32 @@ export const MY_FEED = gql`
     }
   }
 `;
+
+export const MY_PROFILE = gql`
+  query {
+    myProfile {
+      _id
+      username
+      createdAt
+      recipe {
+        label
+        image
+      }
+    }
+  }
+`;
+
+export const USER_PROFILE = gql`
+  query userProfile($username:String!) {
+    userProfile(username:$username) {
+      _id
+      username
+      createdAt
+      recipe {
+        label
+        image
+      }
+    }
+  }
+`;
+
