@@ -86,6 +86,8 @@ const typeDefs = gql`
 
     myFeed: [Post] # OK
 
+    myProfile: [Post] # OK
+
   }
 
   type Mutation {

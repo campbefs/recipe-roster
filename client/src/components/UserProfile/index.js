@@ -7,26 +7,24 @@ import {
 } from "semantic-ui-react";
 // import hat from "../../assets/images/chefhat.jpeg";
 import avatar from '../../assets/images/square-image.png'
-import "./home.css";
+import "../Home/home.css";
 import { useQuery } from '@apollo/client'
 import { MY_FEED, GET_ME_PROFILE } from '../../utils/queries';
 // import { Link } from 'react-router-dom';
 
 
-function Home() {
+function UserProfile() {
   // QUERY FEED
   
   const { loading: loading2, data: follow } = useQuery(GET_ME_PROFILE,
      { fetchPolicy: "no-cache" }
     );
-  const { loading: loading1, data: feed } = useQuery(MY_FEED);
-  let feedData = feed?.myFeed || {};
   let followData = follow?.me || {};
 
-  // console.log(follow);
+  const feedData = followData.posts;
 
   // Loading - must come at bottom
-  if (loading1 || loading2) {
+  if (loading2) {
     return <div>Loading...</div>;
   }
 
@@ -40,7 +38,7 @@ function Home() {
         <Segment>
           <Grid.Row>
             <div className="homeHeader">
-              <h2>What's on the menu today?</h2>
+              <h2>My Favorites</h2>
             </div>
           </Grid.Row>
           <Grid.Row columns={3}>
@@ -48,26 +46,17 @@ function Home() {
               {feedData.map((post) => {
                 return (
                   <div style={{marginBottom: "50px"}}>
-                    <a 
-                      className='click' 
-                      className="hover-link" 
-                      onClick={() => {window.location.href=`/post/${post._id}`}}
-                    >
+                    <a className='click' className="hover-link" onClick={() => {window.location.href=`/post/${post._id}`}}>
                      <h3 className='title' style={{marginBottom: "8px", 
                           }}>
                             {post.recipe.label}</h3>
                     </a>
-                    <a 
-                      className="hover-link"
-                      style={{fontWeight: "bold"}}
+                    {/* <a 
+                      className="hover-link" 
                       onClick={() => {window.location.href=`/profile/${post.username}`}}
                     >
-                        {post.username} 
-                        <span style={{fontWeight: "normal", position: "absolute", right: "15px"}}>
-                          {post.createdAt}
-                        </span>
-                    </a>
-                    
+                        {post.username}
+                    </a> */}
                     <a
                       className="hover-link"
                       onClick={() => {window.location.href=`/post/${post._id}`}}
@@ -124,4 +113,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default UserProfile;

@@ -35,7 +35,6 @@ const resolvers = {
           followArr.push(userData.follows[i].username);
         }
 
-
         // Grab your friend's posts
         const post = await Post.find({'username': { $in: followArr }})
               .populate('recipe')
@@ -48,6 +47,22 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    myProfile: async (_parent, _args, context) => {
+      if (context.user) {
+
+        // Grab & sort my posts
+        const post = await Post.find({'username': context.user.username})
+              .populate('recipe')
+              .sort([['createdAt', -1]])
+              .limit(10);
+
+        return post;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+
 
     // getSingleUser
     getSingleUser: async (_parent, { username }, context) => {

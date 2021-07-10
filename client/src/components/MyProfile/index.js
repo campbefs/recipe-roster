@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import {
   Segment,
   Grid,
@@ -8,28 +8,34 @@ import {
 // import hat from "../../assets/images/chefhat.jpeg";
 import avatar from '../../assets/images/square-image.png'
 import "../Home/home.css";
-import { useQuery, useMutation } from '@apollo/client'
-import { GET_ME, MY_FEED, GET_ME_PROFILE } from '../../utils/queries';
-import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client'
+import { MY_PROFILE, GET_ME_PROFILE } from '../../utils/queries';
+// import { Link } from 'react-router-dom';
 
 
-function Home() {
+function MyProfile() {
   // QUERY FEED
   
   const { loading: loading2, data: follow } = useQuery(GET_ME_PROFILE,
      { fetchPolicy: "no-cache" }
     );
-  const { loading: loading1, data: feed } = useQuery(MY_FEED);
-  let feedData = feed?.myFeed || {};
+  const { loading: loading1, data: feed } = useQuery(MY_PROFILE,
+          { fetchPolicy: "no-cache" }
+    );
+  let feedData = feed?.myProfile || {};
   let followData = follow?.me || {};
 
-  // console.log(follow);
+  console.log(feedData);
+  
 
   // Loading - must come at bottom
-  if (loading1 || loading2) {
+  if (loading1) {
     return <div>Loading...</div>;
   }
 
+  if (loading2) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -41,7 +47,7 @@ function Home() {
         <Segment>
           <Grid.Row>
             <div className="homeHeader">
-              <h2>What's on the menu today?</h2>
+              <h2>My Favorites</h2>
             </div>
           </Grid.Row>
           <Grid.Row columns={3}>
@@ -49,15 +55,25 @@ function Home() {
               {feedData.map((post) => {
                 return (
                   <div style={{marginBottom: "50px"}}>
-                    <a className='click' onClick={() => {window.location.href=`/post/${post._id}`}}>
-                     <h3 className='title' style={{marginBottom: "8px"}}>{post.recipe.label}</h3>
+                    <a className='click' className="hover-link" onClick={() => {window.location.href=`/post/${post._id}`}}>
+                     <h3 className='title' style={{marginBottom: "8px", 
+                          }}>
+                            {post.recipe.label}</h3>
                     </a>
-                    <a onClick={() => {window.location.href=`/profile/${post.username}`}}>{post.username}</a>
-                    <a onClick={() => {window.location.href=`/post/${post._id}`}}>
-                      <Image 
-                        className='img' 
-                        src={post.recipe.image} 
-                        style={{marginTop: "20px"}} 
+                    <div 
+                      // className="hover-link" 
+                      // onClick={() => {window.location.href=`/profile/${post.username}`}}
+                    >
+                        {post.createdAt}
+                    </div>
+                    <a
+                      className="hover-link"
+                      onClick={() => {window.location.href=`/post/${post._id}`}}
+                    >
+                      <Image
+                        className='img'
+                        src={post.recipe.image}
+                        style={{marginTop: "20px"}}
                       />
                     </a>
                   </div>
@@ -81,6 +97,7 @@ function Home() {
                     return (
                       <List.Item>
                       <div 
+                        className="hover-link"
                         style={{marginBottom: "15px", cursor: "pointer", fontWeight: "bold"}}
                         onClick={() => {window.location.href=`/profile/${follows.username}`}}
                       >
@@ -88,7 +105,7 @@ function Home() {
                           src={avatar}
                           avatar
                         />
-                        <a style={{marginLeft: "5px"}}>{follows.username}</a>
+                        <a className="hover-link" style={{marginLeft: "5px"}}>{follows.username}</a>
                       </div>
                     </List.Item>
                     )
@@ -105,4 +122,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default MyProfile;
