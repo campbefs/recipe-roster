@@ -48,15 +48,25 @@ function Home() {
               {feedData.map((post) => {
                 return (
                   <div style={{marginBottom: "50px"}}>
-                    <a className='click' onClick={() => {window.location.href=`/post/${post._id}`}}>
-                     <h3 className='title' style={{marginBottom: "8px"}}>{post.recipe.label}</h3>
+                    <a className='click' className="hover-link" onClick={() => {window.location.href=`/post/${post._id}`}}>
+                     <h3 className='title' style={{marginBottom: "8px", 
+                          }}>
+                            {post.recipe.label}</h3>
                     </a>
-                    <a onClick={() => {window.location.href=`/profile/${post.username}`}}>{post.username}</a>
-                    <a onClick={() => {window.location.href=`/post/${post._id}`}}>
-                      <Image 
-                        className='img' 
-                        src={post.recipe.image} 
-                        style={{marginTop: "20px"}} 
+                    <a 
+                      className="hover-link" 
+                      onClick={() => {window.location.href=`/profile/${post.username}`}}
+                    >
+                        {post.username}
+                    </a>
+                    <a
+                      className="hover-link"
+                      onClick={() => {window.location.href=`/post/${post._id}`}}
+                    >
+                      <Image
+                        className='img'
+                        src={post.recipe.image}
+                        style={{marginTop: "20px"}}
                       />
                     </a>
                   </div>
@@ -80,6 +90,7 @@ function Home() {
                     return (
                       <List.Item>
                       <div 
+                        className="hover-link"
                         style={{marginBottom: "15px", cursor: "pointer", fontWeight: "bold"}}
                         onClick={() => {window.location.href=`/profile/${follows.username}`}}
                       >
@@ -87,7 +98,7 @@ function Home() {
                           src={avatar}
                           avatar
                         />
-                        <a style={{marginLeft: "5px"}}>{follows.username}</a>
+                        <a className="hover-link" style={{marginLeft: "5px"}}>{follows.username}</a>
                       </div>
                     </List.Item>
                     )
