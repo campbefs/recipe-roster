@@ -12,13 +12,42 @@ import UserProfile from './components/UserProfile';
 import RecipeSearch from './components/RecipeSearch'
 import Post from './components/Post';
 
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import ApolloClient from 'apollo-boost';
+
+// const httpLink = createHttpLink({
+//   // uri: 'http://localhost:3001/graphql',
+//   uri: 'graphql',
+
+// });
+
+// const authLink = setContext((__, { headers}) => {
+//   const token = localStorage.getItem('id_token');
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token ? `Bearer ${token}` : ``,
+//     },
+//   };
+// });
+
+// const client = new ApolloClient({
+//   link: authLink.concat(httpLink),
+//   cache: new InMemoryCache(),
+// });
+
+// if (process.env.NODE_ENV === 'production') {
+//   let uri = '/graphql'
+// } else {
+//   let uri = 'http://localhost:3001/graphql'
+// }
 
 const client = new ApolloClient({
 
   request: operation => {
     const token = localStorage.getItem('id_token');
+
 
     operation.setContext({
       headers: {
@@ -26,8 +55,8 @@ const client = new ApolloClient({
       }
     })
   },
-  uri: 'http://localhost:3001/graphql'
-  // uri: '/graphql'
+  // uri: 'http://localhost:3001/graphql'
+  uri: process.env.NODE_ENV === 'production' ? '/graphql' : 'http://localhost:3001/graphql'
 });
 
 function App() {
