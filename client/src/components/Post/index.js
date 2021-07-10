@@ -125,7 +125,12 @@ function Post() {
                       />
                     </List.Item>
                     <List.Item style={{position: "absolute", right: "10px"}}>
-                      <h3>By {postData.username}</h3>
+                      <h3 
+                        onClick={() => {window.location.href=`/profile/${postData.username}`}}
+                        className="hover-link"
+                      >
+                        By {postData.username}
+                      </h3>
                     </List.Item>
                   </List>
                 <p style={{fontSize: "12px"}}>{postData.recipe.ratingCount} Ratings</p>
