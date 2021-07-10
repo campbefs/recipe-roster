@@ -8,7 +8,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import MyProfile from './components/MyProfile';
 import UserProfile from './components/UserProfile';
-import LikedPost from './components/LikedPosts';
+// import LikedPost from './components/LikedPosts';
 import RecipeSearch from './components/RecipeSearch'
 import Post from './components/Post';
 
@@ -55,7 +55,6 @@ function App() {
             <Route exact path="/home" component={Home} />
             <Route exact path="/myprofile" component={MyProfile} />
             <Route exact path="/profile/:username" component={UserProfile} />
-
             <Route exact path="/searchrecipes" component={RecipeSearch} />
             <Route exact path="/post/:postId" component={Post} />
 

@@ -45,9 +45,9 @@ function UserProfile() {
     return <div>Loading...</div>;
   }
 
-  // if (loading2) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading2) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
