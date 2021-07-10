@@ -7,7 +7,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Home from './components/Home';
 import MyProfile from './components/MyProfile';
-import UserProfile from './components/MyProfile';
+import UserProfile from './components/UserProfile';
 import LikedPost from './components/LikedPosts';
 import RecipeSearch from './components/RecipeSearch'
 import Post from './components/Post';
@@ -53,7 +53,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/profile" component={MyProfile} />
+            <Route exact path="/myprofile" component={MyProfile} />
             <Route exact path="/profile/:username" component={UserProfile} />
 
             <Route exact path="/searchrecipes" component={RecipeSearch} />

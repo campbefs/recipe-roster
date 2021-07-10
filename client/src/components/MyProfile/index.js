@@ -25,7 +25,7 @@ function MyProfile() {
   let feedData = feed?.myProfile || {};
   let followData = follow?.me || {};
 
-  console.log(feedData);
+  // console.log(feedData);
   
 
   // Loading - must come at bottom

@@ -88,6 +88,8 @@ const typeDefs = gql`
 
     myProfile: [Post] # OK
 
+    userProfile(username: String!): [Post] # OK
+
   }
 
   type Mutation {

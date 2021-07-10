@@ -67,9 +67,11 @@ export const GET_SINGLE_USER_PROFILE = gql`
       postCount
       posts {
         _id
+        username
         recipe {
           _id
           label
+          image
         }
         # comments {
         #   username
@@ -151,6 +153,20 @@ export const MY_FEED = gql`
 export const MY_PROFILE = gql`
   query {
     myProfile {
+      _id
+      username
+      createdAt
+      recipe {
+        label
+        image
+      }
+    }
+  }
+`;
+
+export const USER_PROFILE = gql`
+  query userProfile($username:String!) {
+    userProfile(username:$username) {
       _id
       username
       createdAt
