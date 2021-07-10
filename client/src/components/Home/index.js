@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import {
   Segment,
   Grid,
@@ -8,9 +8,9 @@ import {
 // import hat from "../../assets/images/chefhat.jpeg";
 import avatar from '../../assets/images/square-image.png'
 import "./home.css";
-import { useQuery, useMutation } from '@apollo/client'
-import { GET_ME, MY_FEED, GET_ME_PROFILE } from '../../utils/queries';
-import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client'
+import { MY_FEED, GET_ME_PROFILE } from '../../utils/queries';
+// import { Link } from 'react-router-dom';
 
 
 function Home() {
@@ -26,7 +26,7 @@ function Home() {
   // console.log(follow);
 
   // Loading - must come at bottom
-  if (loading1) {
+  if (loading1 || loading2) {
     return <div>Loading...</div>;
   }
 

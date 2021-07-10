@@ -31,13 +31,6 @@ const client = new ApolloClient({
 
 function App() {
   const pages = {};
-  // pages["home"] = <Home />;
-  // pages["profile"] = <Profile />;
-  // pages["likedpost"] = <LikedPost />;
-  // pages["login"] = <Login />;
-  // pages["signup"] = <SignUp />;
-  // pages["searchrecipes"] = <RecipeSearch/>
-  // pages["post/:id"] = <Post />;
 
   const path = window.location.pathname.split("/")[1].toLowerCase();
   console.log(path);
@@ -47,7 +40,6 @@ function App() {
     component = pages[path]
   }
 
-  // const [page, setPage] = useState(pages[url]);
   const [page, setPage] = useState(component);
 
   return (

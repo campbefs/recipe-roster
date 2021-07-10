@@ -26,7 +26,7 @@ function Home() {
   // console.log(follow);
 
   // Loading - must come at bottom
-  if (loading1) {
+  if (loading1 || loading2) {
     return <div>Loading...</div>;
   }
 

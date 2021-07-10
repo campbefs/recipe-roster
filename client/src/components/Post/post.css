@@ -17,3 +17,7 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+.hover-link:hover {
+    cursor: pointer;
+}

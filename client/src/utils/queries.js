@@ -87,6 +87,10 @@ export const GET_SINGLE_POST = gql`
         _id
         label
         ingredientLines
+        image
+        avgRating
+        ratingCount
+        ratingUsers
       }
       comments{
         commentId
@@ -95,6 +99,7 @@ export const GET_SINGLE_POST = gql`
         createdAt
       }
       commentCount
+      likes
       likeCount
       createdAt
     }
