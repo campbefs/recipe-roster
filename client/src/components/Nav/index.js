@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./nav.css";
 import { Header, Icon, Segment, Dropdown, Button } from "semantic-ui-react";
-
+import Auth from '../../utils/auth';
+import { asyncFromGen } from "optimism";
 
 function Nav(props) {
+
   return (
     <Segment basic>
       <Header as="h2" floated="left" className="header flex-row px-1">
@@ -12,10 +14,25 @@ function Nav(props) {
       </Header>
 
       <Header as="h3" floated="right">
-        <Button onClick={() => window.location.href = "/login" } >
-          Login</Button>
-        <Button onClick={() => window.location.href = "/signup" } >
-          Sign Up</Button>
+        {
+          !Auth.loggedIn() ? (
+            <>
+              <Button onClick={() => window.location.href = "/login" } >
+                Login
+              </Button>
+              <Button onClick={() => window.location.href = "/signup" } >
+                Sign Up
+              </Button>
+            </>
+          ) : (
+            <Button 
+              onClick={() => Auth.logout()} >
+              Logout
+            </Button>
+          )
+        }
+
+
       </Header>
 
       <Header as="h3" floated="right">
@@ -27,7 +44,7 @@ function Nav(props) {
       {/* <Dropdown.Item text='Liked Recipes' onClick={() => window.location.href = "/likedpost" } /> */}
       
       <Dropdown.Divider/>
-      <Dropdown.Item text='Logout' onClick={() => window.location.href = "/" } />
+      {/* <Dropdown.Item text='Logout' onClick={() => window.location.href = "/" } /> */}
       
      </Dropdown.Menu>
   </Dropdown>
