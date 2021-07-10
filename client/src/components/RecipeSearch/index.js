@@ -31,6 +31,7 @@ const RecipeSearch = () => {
     const { data } = await addRecipeAndPost({
       variables: {...JSON.parse(event.target.dataset.recipe)}
     })
+    alert('Post Created!');
     console.log(data)
   }
   
