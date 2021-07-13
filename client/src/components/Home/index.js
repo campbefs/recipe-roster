@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Segment, Grid, Image, List } from "semantic-ui-react";
+import { Segment, Grid, Image, List, Card } from "semantic-ui-react";
 // import hat from "../../assets/images/chefhat.jpeg";
 import avatar from "../../assets/images/square-image.png";
 import "./home.css";
@@ -30,17 +30,18 @@ function Home() {
       <div className="home">
         <Grid divided stackable>
           <div className="posts">
-            <Segment>
-              <Grid.Row>
-                <div className="homeHeader">
-                  <h2>What's on the menu today?</h2>
-                </div>
-              </Grid.Row>
-              <Grid.Row columns={3}>
-                <Grid.Column>
-                  {feedData.map((post) => {
-                    return (
-                      <div style={{ marginBottom: "50px" }}>
+            <Grid.Row>
+              <div className="homeHeader">
+                <h1 className='header'>What's on the menu today?</h1>
+              </div>
+            </Grid.Row>
+
+            <List horizontal>
+              {feedData.map((post) => {
+                return (
+                  <List.Item>
+                    <Card style={{ marginBottom: "50px" }}>
+                      <div className="title">
                         <a
                           className="click"
                           className="hover-link"
@@ -48,28 +49,30 @@ function Home() {
                             window.location.href = `/post/${post._id}`;
                           }}
                         >
-                          <h3 className="title" style={{ marginBottom: "8px" }}>
+                          <h3 style={{ marginBottom: "8px" }}>
                             {post.recipe.label}
                           </h3>
                         </a>
-                        <a
-                          className="hover-link"
-                          style={{ fontWeight: "bold" }}
-                          onClick={() => {
-                            window.location.href = `/profile/${post.username}`;
-                          }}
-                        >
-                          {post.username}
+                        <p>
+                          <a
+                            className="hover-link"
+                            style={{ fontWeight: "bold" }}
+                            onClick={() => {
+                              window.location.href = `/profile/${post.username}`;
+                            }}
+                          >
+                            {post.username}
+                          </a>{" "}
+                          posted{" "}
                           <span
                             style={{
                               fontWeight: "normal",
-                              position: "absolute",
                               right: "15px",
                             }}
                           >
                             {post.createdAt}
                           </span>
-                        </a>
+                        </p>
 
                         <a
                           className="hover-link"
@@ -84,53 +87,61 @@ function Home() {
                           />
                         </a>
                       </div>
-                    );
-                  })}
-                </Grid.Column>
-              </Grid.Row>
-            </Segment>
+                    </Card>
+                  </List.Item>
+                );
+              })}
+            </List>
           </div>
+        </Grid>
+        <div className='follow'>
+        <Grid>
           <div className="following">
+           
+            <UserSearch />
+           
             <Segment>
-              <UserSearch 
-              // term={searchTerm}
-              // searchKeyword={searchHandler}
-              />
               <Grid.Row>
-                <h3 style={{ marginBottom: "20px" }}>Following</h3>
+                <div className="follow-header">
+                  <h3>Following</h3>
+                </div>
               </Grid.Row>
+
               <Grid.Row>
-                <List vertical>
-                  {followData.follows.map((follows) => {
-                    return (
-                      <List.Item>
-                        <div
-                          className="hover-link"
-                          style={{
-                            marginBottom: "15px",
-                            cursor: "pointer",
-                            fontWeight: "bold",
-                          }}
-                          onClick={() => {
-                            window.location.href = `/profile/${follows.username}`;
-                          }}
-                        >
-                          <Image src={avatar} avatar />
-                          <a
+                <div className="following">
+                  <List vertical>
+                    {followData.follows.map((follows) => {
+                      return (
+                        <List.Item>
+                          <div
                             className="hover-link"
-                            style={{ marginLeft: "5px" }}
+                            style={{
+                              marginBottom: "15px",
+                              cursor: "pointer",
+                              fontWeight: "bold",
+                            }}
+                            onClick={() => {
+                              window.location.href = `/profile/${follows.username}`;
+                            }}
                           >
-                            {follows.username}
-                          </a>
-                        </div>
-                      </List.Item>
-                    );
-                  })}
-                </List>
+                            <Image src={avatar} avatar />
+                            <a
+                              className="hover-link"
+                              style={{ marginLeft: "5px" }}
+                            >
+                              {follows.username}
+                            </a>
+                          </div>
+                        </List.Item>
+                      );
+                    })}
+                  </List>
+                </div>
               </Grid.Row>
             </Segment>
           </div>
         </Grid>
+        </div>
       </div>
     </>
   );
