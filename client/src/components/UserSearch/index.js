@@ -7,27 +7,6 @@ function UserSearch() {
   // state for search users input
   const [searchTerm, setSearchTerm] = useState("");
  
-  const searchHandler = async (event) => {
-    event.preventDefault();
-
-    if (!searchTerm) {
-      return false;
-    }
-    try {
-      const response = await searchUser(searchTerm);
-      
-      if (!response.ok) {
-        alert("Enter valid username.");
-      }
-      setSearchTerm('');
-    } catch (err) {
-      console.error(err);
-    }
-    
-  };
-  console.log(searchUser(searchTerm))
-
-
   return (
     <>
       <Grid.Row>
@@ -39,7 +18,6 @@ function UserSearch() {
               className="prompt"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              
             />
             <a
             href={'/profile/' + searchTerm}>

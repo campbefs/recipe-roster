@@ -58,17 +58,14 @@ function MyProfile() {
                 return (
                   <List.Item>
                  <Card style={{marginBottom: "50px"}}>
+                 <div className='title'>
                     <a className='click' className="hover-link" onClick={() => {window.location.href=`/post/${post._id}`}}>
-                     <h3 className='title' style={{marginBottom: "8px", 
+                     <h3 style={{marginBottom: "8px", 
                           }}>
                             {post.recipe.label}</h3>
                     </a>
-                    <div 
-                      // className="hover-link" 
-                      // onClick={() => {window.location.href=`/profile/${post.username}`}}
-                    >
-                        {post.createdAt}
-                    </div>
+                    <p>{post.createdAt}</p>
+                    
                     <a
                       className="hover-link"
                       onClick={() => {window.location.href=`/post/${post._id}`}}
@@ -79,7 +76,7 @@ function MyProfile() {
                         style={{marginTop: "20px"}}
                       />
                     </a>
-                    
+                    </div>
                   </Card>
                   </List.Item>
                   

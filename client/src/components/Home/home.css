@@ -1,13 +1,13 @@
 .home {
     display: flex;
     flex-direction: row;
-    padding-top: 5%;
+    /* padding-top: 5%; */
     justify-content: center;
     position: relative;
 }
 
 .homeHeader {
-    text-align: left;
+    text-align: center;
     font-weight:bolder ;
     padding-bottom: 3%;
 
@@ -59,3 +59,11 @@ a:hover {
 /* ::-webkit-scrollbar {
     display: none;
 } */
+
+
+
+.title {
+    padding-top: 3%;
+    text-align: center;
+    background-color: rgba(44, 81, 162, 0.338);
+}
