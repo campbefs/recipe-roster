@@ -27,7 +27,7 @@ function UserProfile() {
     }
   );
    let followData = follow?.getSingleUser || {};
-
+    console.log(followData, follow)
   const { loading: loading2, data: feed, refetch } = useQuery(USER_PROFILE,
           { 
             variables: {username: username},  // CHANGE THIS!!!

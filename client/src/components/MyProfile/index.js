@@ -1,9 +1,10 @@
 // import React, { useEffect } from "react";
 import {
-  Segment,
+  Icon,
   Grid,
   Image,
   List,
+  Card
 } from "semantic-ui-react";
 // import hat from "../../assets/images/chefhat.jpeg";
 import avatar from '../../assets/images/square-image.png'
@@ -41,20 +42,22 @@ function MyProfile() {
     <>
       <div className="home">
        
-        <Grid divided stackable>
+        <Grid divided stackable columns={3}>
         
         <div className='posts'>
-        <Segment>
-          <Grid.Row>
+       
+          <Grid.Row textAlign='center'>
             <div className="homeHeader">
-              <h2>My Favorites</h2>
+              <h2><Icon name='user circle'/>{follow.me.username}'s favorite recipes</h2>
+              <p>Following || Followers</p>
             </div>
           </Grid.Row>
-          <Grid.Row columns={3}>
-            <Grid.Column>
+
+            <List horizontal>
               {feedData.map((post) => {
                 return (
-                  <div style={{marginBottom: "50px"}}>
+                  <List.Item>
+                 <Card style={{marginBottom: "50px"}}>
                     <a className='click' className="hover-link" onClick={() => {window.location.href=`/post/${post._id}`}}>
                      <h3 className='title' style={{marginBottom: "8px", 
                           }}>
@@ -76,16 +79,20 @@ function MyProfile() {
                         style={{marginTop: "20px"}}
                       />
                     </a>
-                  </div>
+                    
+                  </Card>
+                  </List.Item>
+                  
                 );
               })}
-            </Grid.Column>
+              
+            </List>
           
-          </Grid.Row>
-         
-          </Segment>
+        
+            
+          
           </div>
-          <div className='following'>
+          {/* <div className='following'>
             <Segment>
           <Grid.Row>
             <h3 style={{marginBottom: "20px"}}>Following</h3>
@@ -115,7 +122,7 @@ function MyProfile() {
           
           </Grid.Row>
           </Segment>
-          </div>
+          </div> */}
         </Grid>
       </div>
     </>

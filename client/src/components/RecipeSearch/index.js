@@ -90,7 +90,7 @@ const RecipeSearch = () => {
               type="text"
               placeholder="Search for recipes... "
             />
-            <Button compact circular basic icon='search'type="submit" variant="success"/>
+            <Button compact circular basic icon='search' type="submit" variant="success"/>
           
         
         </Form>
