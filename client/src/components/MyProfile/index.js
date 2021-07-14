@@ -26,7 +26,7 @@ function MyProfile() {
   let feedData = feed?.myProfile || {};
   let followData = follow?.me || {};
 
-  // console.log(feedData);
+  // console.log(followData);
   
 
   // Loading - must come at bottom
@@ -56,7 +56,7 @@ function MyProfile() {
             <List horizontal>
               {feedData.map((post) => {
                 return (
-                  <List.Item>
+                  <List.Item key={post.id}>
                  <Card style={{marginBottom: "50px"}}>
                  <div className='title'>
                     <a className='click' className="hover-link" onClick={() => {window.location.href=`/post/${post._id}`}}>

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
-import { searchUser } from "../../utils/API";
-
 
 function UserSearch() {
   // state for search users input

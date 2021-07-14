@@ -109,7 +109,7 @@ const RecipeSearch = () => {
               <Card.Content>
                 <Card.Header>
                 <List horizontal>
-                    <List.Item>
+                    <List.Item key={recipeData.id}>
                     {recipeData.label}
                     </List.Item>
                     {/* <List.Item>
