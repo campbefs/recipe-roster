@@ -39,5 +39,7 @@
   This application is covered under the following license: [The Unlicense](http://unlicense.org/)
 
   ## Live Application Snapshot
+  [Live Application Link](https://recipe-roster.herokuapp.com/)
+  
   ![alt text](client/src/assets/images/screenshot.JPG 'Live Application Screenshot')
 
