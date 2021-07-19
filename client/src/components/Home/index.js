@@ -33,7 +33,7 @@ function Home() {
           <div className="posts">
             <Grid.Row>
               <div className="homeHeader">
-                <h1 className='header'>What's on the menu today?</h1>
+                <h2 className='header'>Hey {followData.username}, what's on the menu today?</h2>
               </div>
             </Grid.Row>
 
@@ -110,7 +110,7 @@ function Home() {
 
               <Grid.Row>
                 <div className="following">
-                  <List vertical>
+                  <List style={{ "text-align": "left" }}vertical>
                     {followData.follows.map((follows) => {
                       return (
                         <List.Item>

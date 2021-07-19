@@ -2,17 +2,17 @@ import { searchRecipes } from "../../utils/API";
 import React, { useState, useEffect } from "react";
 import {
   Form,
-  Container,
+  Grid,
   Button,
   Card,
   Image,
   Segment,
   List, 
-  Icon,
   Input
 } from "semantic-ui-react";
 import { ADD_RECIPE_AND_POST } from '../../utils/mutations'
 import { useMutation } from '@apollo/client'
+import './style.css'
 
 
 const RecipeSearch = () => {
@@ -98,11 +98,12 @@ const RecipeSearch = () => {
       </div>
 
       <Segment>
-        <h2>
+        <h2 style={{ "text-align":"center" }}>
           {searchedRecipes.length
             ? `Viewing ${searchedRecipes.length} results:`
             : `Search for a recipe to get cookin'!`}
         </h2>
+        <Grid centered>
         {searchedRecipes.map((recipeData) => {
           return (
             <Card key={recipeData.uri}>
@@ -116,7 +117,8 @@ const RecipeSearch = () => {
                     <Icon name="heart outline" />
                     </List.Item> */}
                     <List.Item>
-                    <Button basic compact  data-recipe={JSON.stringify(recipeData)} onClick={addRecipe}><Icon name="list"/>Post recipe</Button>
+                    <Button primary compact  size='small'
+                    data-recipe={JSON.stringify(recipeData)} onClick={addRecipe}>Post</Button>
                     </List.Item>
                   </List>
                 </Card.Header>
@@ -128,6 +130,7 @@ const RecipeSearch = () => {
             </Card>
           );
         })}
+        </Grid>
       </Segment>
     </>
   );

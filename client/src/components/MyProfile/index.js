@@ -1,13 +1,12 @@
-// import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Icon,
   Grid,
   Image,
   List,
-  Card
+  Card,
+  Modal
 } from "semantic-ui-react";
-// import hat from "../../assets/images/chefhat.jpeg";
-import avatar from '../../assets/images/square-image.png'
 import "../Home/home.css";
 import { useQuery } from '@apollo/client'
 import { MY_PROFILE, GET_ME_PROFILE } from '../../utils/queries';
@@ -15,6 +14,7 @@ import { MY_PROFILE, GET_ME_PROFILE } from '../../utils/queries';
 
 
 function MyProfile() {
+  const [open, setOpen] = React.useState(false);
   // QUERY FEED
   
   const { loading: loading2, data: follow } = useQuery(GET_ME_PROFILE,
@@ -49,7 +49,45 @@ function MyProfile() {
           <Grid.Row textAlign='center'>
             <div className="homeHeader">
               <h2><Icon name='user circle'/>{follow.me.username}'s favorite recipes</h2>
-              <p>Following || Followers</p>
+              <Modal
+                  closeIcon
+                  open={open}
+                  trigger={<a className='follow-list'>Following</a>}
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                  size="mini"
+                >
+                  <Modal.Content>
+                    <h3 style={{ textAlign: "center" }}>Following</h3>
+                    <List vertical="true">
+                      {followData.follows.map((follows) => {
+                        return (
+                          <List.Item key={follows.id}>
+                            <div
+                              className="hover-link"
+                              style={{
+                                marginBottom: "15px",
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                              }}
+                              onClick={() => {
+                                window.location.href = `/profile/${follows.username}`;
+                              }}
+                            >
+                              <Icon name="user circle" />
+                              <a
+                                className="hover-link"
+                                style={{ marginLeft: "5px" }}
+                              >
+                                {follows.username}
+                              </a>
+                            </div>
+                          </List.Item>
+                        );
+                      })}
+                    </List>
+                  </Modal.Content>
+                </Modal>
             </div>
           </Grid.Row>
 
