@@ -26,7 +26,8 @@ function MyProfile() {
   let feedData = feed?.myProfile || {};
   let followData = follow?.me || {};
 
-  // console.log(followData);
+  const following = followData.follows
+  console.log(following);
   
 
   // Loading - must come at bottom
@@ -164,4 +165,4 @@ function MyProfile() {
   );
 }
 
-export default MyProfile;
+export default MyProfile; 

@@ -15,7 +15,6 @@ import Post from './components/Post';
 import { ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import ApolloClient from 'apollo-boost';
-
 // const httpLink = createHttpLink({
 //   // uri: 'http://localhost:3001/graphql',
 //   uri: 'graphql',
@@ -71,7 +70,6 @@ function App() {
   }
 
   const [page, setPage] = useState(component);
-
   return (
     <ApolloProvider client={client}>
       <Router>

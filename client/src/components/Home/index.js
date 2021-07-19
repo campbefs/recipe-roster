@@ -25,7 +25,7 @@ function Home() {
     return <div>Loading...</div>;
   }
 
-  
+  console.log(followData)
   return (
     <>
       <div className="home">
